@@ -10,6 +10,8 @@ public class Shooting : MonoBehaviour
     /// This Class is exlusively for shooting, it handles audio, direction and speed of the bullet. 
     /// </summary>
 
+    [SerializeField] private float m_offset;
+   
     [SerializeField] private float m_fire_rate;
 
     [SerializeField] private Transform m_arm;
@@ -113,6 +115,18 @@ public class Shooting : MonoBehaviour
         }
     }
 
+    public float Offset
+    {
+        get
+        {
+            return m_offset;
+        }
+
+        set
+        {
+            m_offset = value;
+        }
+    }
 
     void Start() 
 	{
@@ -135,7 +149,7 @@ public class Shooting : MonoBehaviour
 		
 		//if (!m_audio_source.isPlaying) {
 			//Create a new bullet
-			GameObject newBullet = Instantiate (m_bullet, m_arm.position, m_arm.rotation);
+			GameObject newBullet = Instantiate (m_bullet, m_arm.position + m_arm.TransformDirection(Offset, 0.0f, 0.0f), m_arm.rotation);
 
             m_audio_source.PlayOneShot (m_shooting_audio);
 

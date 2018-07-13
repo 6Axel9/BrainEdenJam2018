@@ -26,10 +26,10 @@ public class SmoothMouseLook : MonoBehaviour {
     private float m_rotationX;
 	private float m_rotationY;
 
-	private List<float> rotArrayX = new List<float>();
+	private List<float> m_rot_arrayX = new List<float>();
 	private float m_rot_averageX;	
 
-	private List<float> rotArrayY = new List<float>();
+	private List<float> m_rot_arrayY = new List<float>();
 	private float m_rot_averageY;
 
     private Quaternion originalRotation;
@@ -126,25 +126,25 @@ public class SmoothMouseLook : MonoBehaviour {
 		m_rotationX += Input.GetAxis("Mouse X") * sensitivityY;
 		
 
-		rotArrayY.Add(m_rotationY);
-		rotArrayX.Add(m_rotationX);
+		m_rot_arrayY.Add(m_rotationY);
+		m_rot_arrayX.Add(m_rotationX);
 
-		if (rotArrayY.Count >= m_frame_counter) {
-			rotArrayY.RemoveAt(0);
+		if (m_rot_arrayY.Count >= m_frame_counter) {
+			m_rot_arrayY.RemoveAt(0);
 		}
-		if (rotArrayX.Count >= m_frame_counter) {
-			rotArrayX.RemoveAt(0);
-		}
-
-		for(int j = 0; j < rotArrayY.Count; j++) {
-			m_rot_averageY += rotArrayY[j];
-		}
-		for(int i = 0; i < rotArrayX.Count; i++) {
-			m_rot_averageX += rotArrayX[i];
+		if (m_rot_arrayX.Count >= m_frame_counter) {
+			m_rot_arrayX.RemoveAt(0);
 		}
 
-		m_rot_averageY /= rotArrayY.Count;
-		m_rot_averageX /= rotArrayX.Count;
+		for(int j = 0; j < m_rot_arrayY.Count; j++) {
+			m_rot_averageY += m_rot_arrayY[j];
+		}
+		for(int i = 0; i < m_rot_arrayX.Count; i++) {
+			m_rot_averageX += m_rot_arrayX[i];
+		}
+
+		m_rot_averageY /= m_rot_arrayY.Count;
+		m_rot_averageX /= m_rot_arrayX.Count;
 
 		m_rot_averageY = ClampAngle (m_rot_averageY, m_minimumY, m_maximumY);
 		m_rot_averageX = ClampAngle (m_rot_averageX, m_minimumX, m_maximumX);
