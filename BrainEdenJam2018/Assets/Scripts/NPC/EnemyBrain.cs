@@ -12,6 +12,7 @@ public class EnemyBrain : MonoBehaviour
 	IEnumerator _currState;
     IEnumerator _nextState;
 
+    public List<Vector3> m_steerings = new List<Vector3>();
 
     void Start()
     {
@@ -25,6 +26,8 @@ public class EnemyBrain : MonoBehaviour
     /// </summary>
 	IEnumerator Moving()
     {
+        Debug.Log("There");
+
         yield return null;
     }
 
@@ -45,12 +48,13 @@ public class EnemyBrain : MonoBehaviour
     }
 
     /// <summary>
-    /// Idling is actually just a standby for 1.5 seconds, then the agent will go back to moving
+    /// Idling is actually just a standby for 1.5 to 3 seconds, then the agent will go back to moving
     /// </summary>
 	IEnumerator Idling()
     {
         while (_nextState == null)
         {
+
             yield return new WaitForSeconds(Random.Range(1.5f, 3));
             _nextState = Moving();
             yield return null;
@@ -85,7 +89,6 @@ public class EnemyBrain : MonoBehaviour
 	private void OnTriggerStay(Collider coll)
     {
 
-       
     }
 
     /// <summary>
@@ -93,7 +96,7 @@ public class EnemyBrain : MonoBehaviour
     /// </summary>
 	private void OnTriggerExit(Collider coll)
     {
-      
+        
     }
 
 }

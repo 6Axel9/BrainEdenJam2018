@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
 
     [System.NonSerialized] private Vector3 m_speed;
 
+    [SerializeField] private float m_life_span;
+
     private GameObject m_bulletObject;
 
     public GameObject BulletObject
@@ -35,6 +37,19 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    public float LifeSpan
+    {
+        get
+        {
+            return m_life_span;
+        }
+
+        set
+        {
+            m_life_span = value;
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -43,7 +58,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-
+        Destroy(this.gameObject, m_life_span);
     }
 
     void OnCollisionEnter(Collision collision)
