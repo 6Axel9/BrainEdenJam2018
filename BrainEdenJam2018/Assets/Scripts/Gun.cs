@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
@@ -24,6 +25,15 @@ public class Gun : MonoBehaviour
 
 
     [SerializeField] private AudioSource m_audio_source;
+
+    [SerializeField] private Transform m_camera;
+
+    //Everything for reload and cllip size
+    [SerializeField] private int m_clipSize = 6;
+    [SerializeField] private int m_bulletsInClip = 6;
+    [SerializeField] private float m_reloadTime = 5.0f;
+    [SerializeField] private Image m_reloadBar;
+    [SerializeField] private float m_percentComplete = 0;
 
     public Transform Arm {
         get { return m_arm; }
@@ -79,9 +89,10 @@ public class Gun : MonoBehaviour
             GetComponent<UnreliableBehaviour>().FailChance = 15f;
             if (!GetComponent<UnreliableBehaviour>().HasFailed())
             {
-                if(m_cooldown <= 0.0f)
+                if(m_cooldown <= 0.0f && m_bulletsInClip > 0)
                 {
                     StartCoroutine(Shoot());
+                    m_bulletsInClip--;
                     m_cooldown = m_fire_rate;
                 }
             }
@@ -93,23 +104,54 @@ public class Gun : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(Reload());
+        }
+
         m_cooldown -= Time.deltaTime;
-	}
+        
+        m_reloadBar.fillAmount = m_percentComplete;
+        //m_reloadBar.fillAmount += Time.deltaTime;
+    }
+
+    IEnumerator Reload() {
+        float currentReload = 0;
+
+        while (currentReload < m_reloadTime - 0.1f)
+        {
+
+            m_percentComplete = (currentReload / m_reloadTime);
+            
+            currentReload += Time.deltaTime;
+
+            yield return null;
+            
+        }
+
+        m_bulletsInClip = m_clipSize;
+        m_reloadBar.fillAmount = 0;
+        m_percentComplete = 0.0f;
+
+    }
 
 
 	IEnumerator Shoot()
 	{
-		
-		//if (!m_audio_source.isPlaying) {
-			//Create a new bullet
-			GameObject newBullet = Instantiate (m_bullet, m_arm.position + m_arm.TransformDirection(Offset, 0.0f, 0.0f), m_arm.rotation);
+
+        //if (!m_audio_source.isPlaying) {
+        
+        Vector3 crosshair = m_camera.position + m_camera.forward * 55.0f;
+        Vector3 bulletSpawn = m_arm.position + m_arm.TransformDirection(Offset, 0.0f, 0.0f);
+        Vector3 raycast = crosshair - bulletSpawn;
+
+        //Create a new bullet
+        GameObject newBullet = Instantiate (m_bullet, bulletSpawn, Quaternion.identity);
 
             m_audio_source.PlayOneShot (m_shooting_audio);
 
 			//Give it speed
-			newBullet.GetComponent<Bullet> ().Speed = m_bullet_speed * m_arm.right;
-
-        //yield return new WaitForSeconds (m_fire_rate);
+			newBullet.GetComponent<Bullet> ().Speed = m_bullet_speed * raycast.normalized;
 
             yield return null;
 
