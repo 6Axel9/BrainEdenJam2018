@@ -156,10 +156,18 @@ public class EnemyBrain : MonoBehaviour {
                 {
                     m_leader = coll.transform;
                 }
+
+                if (coll.CompareTag("Player"))
+                {
+                    m_nextState = Attack();
+                }
             }
             else
             {
-
+                if (coll.CompareTag("Player"))
+                {
+                    m_nextState = Attack();
+                }
             }
 		}
 	}
