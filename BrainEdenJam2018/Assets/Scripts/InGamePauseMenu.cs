@@ -1,39 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class InGamePauseMenu : MonoBehaviour {
 
+    public GameObject menu;
+
 	void Start () {
 
-		GetComponent<Canvas> ().enabled = false;
+        menu.SetActive(false);
 	}
 
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.P)) {
-			Time.timeScale = 0;
-			GetComponent<Canvas> ().enabled = !GetComponent<Canvas> ().enabled;
-		}
-
-		if (!GetComponent<Canvas> ().enabled) {
-			GameObject.FindGameObjectWithTag ("Player").GetComponent<SmoothMouseLook> ().enabled = true;
-			Cursor.lockState = CursorLockMode.Locked;
-			Time.timeScale = 1;
-		} else {
-			Cursor.lockState = CursorLockMode.None;
-			GameObject.FindGameObjectWithTag ("Player").GetComponent<SmoothMouseLook> ().enabled = false;
-		}
+            if (menu.activeSelf)
+            {
+                menu.SetActive(false);
+                GameObject.FindGameObjectWithTag("Player").GetComponent<SmoothMouseLook>().enabled = true;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else
+            {
+                menu.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<SmoothMouseLook>().enabled = false;
+            }
+        }
 	}
 
 	public void BackToPlay(){
-		GameObject.FindGameObjectWithTag ("Player").GetComponent<SmoothMouseLook> ().enabled = true;
+        menu.SetActive(false);
+        GameObject.FindGameObjectWithTag ("Player").GetComponent<SmoothMouseLook> ().enabled = true;
 		Cursor.lockState = CursorLockMode.Locked;
-		Time.timeScale = 1;	
 	}
 
 	public void GoToMainMenu(){
-		Time.timeScale = 1;	
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex - 1);
 	}
 		
