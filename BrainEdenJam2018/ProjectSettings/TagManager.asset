@@ -7,6 +7,11 @@ TagManager:
   - Obstacle
   - Enemy
   - Leader
+  - Bullet
+  - Gun
+  - Moon
+  - Sun
+  - Ground
   layers:
   - Default
   - TransparentFX
