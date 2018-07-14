@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 14f737148935146eea37bb19a93f2a83
+guid: 81da8b0037e2b4939b78b8e305c35459
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: char_mat
+    2100000: barrel_mat
     2300000: //RootNode
     3300000: //RootNode
-    4300000: char
+    4300000: pCylinder1
   externalObjects: {}
   materials:
     importMaterials: 1

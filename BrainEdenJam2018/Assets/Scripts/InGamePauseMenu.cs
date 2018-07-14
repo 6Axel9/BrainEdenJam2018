@@ -11,7 +11,6 @@ public class InGamePauseMenu : MonoBehaviour
 
     void Start()
     {
-
         menu.SetActive(false);
     }
 

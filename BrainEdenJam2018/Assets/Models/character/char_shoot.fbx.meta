@@ -112,12 +112,7 @@ ModelImporter:
     7400000: Take 001
     9500000: //RootNode
     13700000: char
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: char_mat
-    second: {fileID: 2100000, guid: 85cb630e787da3c4aaf1d0740a4a1aef, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0

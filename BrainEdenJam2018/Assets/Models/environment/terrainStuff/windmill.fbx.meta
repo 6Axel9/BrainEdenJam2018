@@ -1,14 +1,23 @@
 fileFormatVersion: 2
-guid: 14f737148935146eea37bb19a93f2a83
+guid: b39cd53a4453f4fed9be779b488554f2
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: char_mat
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: char
+    100000: blades1
+    100002: strut_05
+    100004: //RootNode
+    400000: blades1
+    400002: strut_05
+    400004: //RootNode
+    2100000: windmill_mat
+    2300000: blades1
+    2300002: strut_05
+    3300000: blades1
+    3300002: strut_05
+    4300000: strut_05
+    4300002: blades1
+    7400000: Take 001
+    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -84,7 +93,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
