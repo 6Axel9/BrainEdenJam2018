@@ -11,7 +11,7 @@ public class Gun : MonoBehaviour
     /// This Class is exlusively for shooting, it handles audio, direction and speed of the bullet. 
     /// </summary>
 
-    [SerializeField] private float m_offset;
+    [SerializeField] private Vector3 m_offset;
    
     [SerializeField] private float m_fire_rate = 0.25f;
     [SerializeField] private float m_cooldown;
@@ -70,7 +70,7 @@ public class Gun : MonoBehaviour
         set { m_fire_rate = value; }
     }
 
-    public float Offset {
+    public Vector3 Offset {
         get { return m_offset; }
         set { m_offset = value; }
     }
@@ -144,7 +144,7 @@ public class Gun : MonoBehaviour
         //Vector3 crosshair = m_camera.position + m_camera.forward * 55.0f;
 
         Vector3 direction = Vector3.zero;
-        Vector3 bulletSpawn = m_arm.position + m_arm.TransformDirection(Offset, 0.0f, 0.0f);
+        Vector3 bulletSpawn = m_arm.position + m_arm.TransformDirection(Offset);
 
         Vector3 raycast = (m_camera.position + m_camera.forward * 30.0f) - bulletSpawn;
 
