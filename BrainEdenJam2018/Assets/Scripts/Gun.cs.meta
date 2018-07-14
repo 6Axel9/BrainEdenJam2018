@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: dfbee0aa6a70e344a999ed25bdb7257e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cam: {instanceID: 0}
+  - bulletObj: {fileID: 1666297753046064, guid: ef18f6b03240d1548af44231ddc417cc,
+      type: 2}
+  - animator: {instanceID: 0}
+  - shooting: {instanceID: 0}
+  - reloading: {instanceID: 0}
+  - audio_source: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
