@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class Humanoid : MonoBehaviour, IMovement
+public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
 {
     private Animator Anim;
     private Rigidbody Body;
@@ -11,6 +11,11 @@ public partial class Humanoid : MonoBehaviour, IMovement
     public float MovementSpeed;
     public float JumpForce;
     public float FallForce;
+    public float SwapForce;
+    public float ThrowForce;
+    public float CollectSpeed;
+
+    public int Score;
 
     // Use this for initialization
     void Start () {
@@ -28,6 +33,17 @@ public partial class Humanoid : MonoBehaviour, IMovement
     }
 
     void FixedUpdate () {
+
+        if (Input.GetKeyDown(KeyCode.B) && Holding)
+        {
+            Throw(ThrowForce);
+        }
+
+        if (Input.GetKeyDown(KeyCode.X) && Holding)
+        {
+            Swap(SwapForce);
+        }
+
 
         if (Input.GetKey(KeyCode.Space) && !IsJumping)
         {
@@ -52,6 +68,13 @@ public partial class Humanoid : MonoBehaviour, IMovement
         {
             Crouch(true);
         }
+
+        Pickup(CollectSpeed);
+
+        if ((Input.GetKeyDown(KeyCode.G) && !Holding) || Holding)
+        {
+            Hold(CollectSpeed);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -60,6 +83,12 @@ public partial class Humanoid : MonoBehaviour, IMovement
         {
             IsJumping = false;
             IsFalling = false;
+        }
+
+        if (collision.gameObject.CompareTag("Pickup"))
+        {
+            Destroy(collision.gameObject);
+            Score++;
         }
     }
 }

@@ -12,6 +12,8 @@ TagManager:
   - Moon
   - Sun
   - Ground
+  - Pickup
+  - Item
   layers:
   - Default
   - TransparentFX
