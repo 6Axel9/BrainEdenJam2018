@@ -140,10 +140,25 @@ public class Gun : MonoBehaviour
 	{
 
         //if (!m_audio_source.isPlaying) {
-        
-        Vector3 crosshair = m_camera.position + m_camera.forward * 55.0f;
+
+        //Vector3 crosshair = m_camera.position + m_camera.forward * 55.0f;
+
+        Vector3 direction = Vector3.zero;
         Vector3 bulletSpawn = m_arm.position + m_arm.TransformDirection(Offset, 0.0f, 0.0f);
-        Vector3 raycast = crosshair - bulletSpawn;
+
+        Vector3 raycast = (m_camera.position + m_camera.forward * 30.0f) - bulletSpawn;
+
+        RaycastHit[] hitObjects = Physics.RaycastAll(m_camera.position, m_camera.forward);
+
+        if(hitObjects.Length > 0)
+        {
+            Vector3 hitPoint = hitObjects[0].point;
+            direction = hitPoint - bulletSpawn;
+        }
+        else
+        {
+            direction = raycast.normalized;
+        }
 
         //Create a new bullet
         GameObject newBullet = Instantiate (m_bullet, bulletSpawn, Quaternion.identity);
@@ -151,7 +166,7 @@ public class Gun : MonoBehaviour
             m_audio_source.PlayOneShot (m_shooting_audio);
 
 			//Give it speed
-			newBullet.GetComponent<Bullet> ().Speed = m_bullet_speed * raycast.normalized;
+			newBullet.GetComponent<Bullet> ().Speed = m_bullet_speed * direction.normalized;
 
             yield return null;
 
