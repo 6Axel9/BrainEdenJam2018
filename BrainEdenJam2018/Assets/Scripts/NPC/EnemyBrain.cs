@@ -49,7 +49,6 @@ public class EnemyBrain : MonoBehaviour {
 		GetComponent<MovementManager> ().ClearSteerings ();
 		GetComponent<MovementManager> ().AddSteering(GetComponent<AvoidInput>());
 		GetComponent<MovementManager> ().AddSteering(GetComponent<WanderInput>());
-        gameObject.GetComponentInChildren<Renderer>().material.color = Color.green;
 
         while (m_nextState == null) {
 			if (Input.GetKeyDown(KeyCode.Tab)) {
@@ -106,8 +105,6 @@ public class EnemyBrain : MonoBehaviour {
 		GetComponent<MovementManager> ().ClearSteerings ();
 		GetComponent<MovementManager> ().AddSteering(GetComponent<AvoidInput>());
 		GetComponent<MovementManager> ().AddSteering(GetComponent<SeekInput>());
-		gameObject.GetComponentInChildren<Renderer> ().material.color = Color.red;
-
 		while (m_nextState == null) {
 
             if (Input.GetKeyDown(KeyCode.Return))
