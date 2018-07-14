@@ -6,10 +6,11 @@ public class Bullet : MonoBehaviour
 {
 
     [System.NonSerialized] private Vector3 m_speed;
-
-    [SerializeField] private float m_life_span;
+    public float m_bulletDamage = 10f;
 
     private GameObject m_bulletObject;
+
+    [SerializeField] private float m_life_span;
 
     public GameObject BulletObject
     {
