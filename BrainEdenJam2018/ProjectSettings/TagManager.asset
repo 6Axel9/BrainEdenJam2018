@@ -14,6 +14,7 @@ TagManager:
   - Ground
   - Pickup
   - Item
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

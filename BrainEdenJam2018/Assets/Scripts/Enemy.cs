@@ -12,10 +12,11 @@ public partial class Enemy : MonoBehaviour, IMovement
     public float m_moveSpeed;
     public float m_jumpForce;
 
-	// Use this for initializationw
-	void Start () {
+
+    // Use this for initializationw
+    void Start () {
         m_body = GetComponent<Rigidbody>();
-        m_anim = GetComponent<Animator>();
+        m_anim = GetComponentInChildren<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -33,7 +34,10 @@ public partial class Enemy : MonoBehaviour, IMovement
 
     void FixedUpdate()
     {
-        
+        if(m_body.velocity.magnitude > 0.1f)
+        {
+            m_anim.SetFloat("Velocity", m_body.velocity.magnitude);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -44,12 +48,11 @@ public partial class Enemy : MonoBehaviour, IMovement
             IsFalling = false;
         }
 
-
-
         if (collision.gameObject.CompareTag("Bullet"))
         {
             Damage(collision.gameObject.GetComponent<Bullet>().m_bulletDamage);
         }
     }
+
 
 }

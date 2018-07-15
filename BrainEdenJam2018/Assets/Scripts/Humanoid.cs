@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
@@ -18,6 +19,9 @@ public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
     public int Score;
     private bool buttonPressed;
 
+    public Image m_healthBar;
+    public float m_percentageHealth = 0;
+
     // Use this for initialization
     void Start () {
 
@@ -31,6 +35,9 @@ public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
         {
             m_isDead = true;
         }
+
+        m_percentageHealth = (m_health / m_maxHealth);
+        m_healthBar.fillAmount = m_percentageHealth;
     }
 
     void FixedUpdate () {
@@ -89,6 +96,11 @@ public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
         {
             Destroy(collision.gameObject);
             Score++;
+        }
+
+        if (collision.gameObject.CompareTag("EnemyBullet"))
+        {
+            m_health -= 0.5f;
         }
     }
 }

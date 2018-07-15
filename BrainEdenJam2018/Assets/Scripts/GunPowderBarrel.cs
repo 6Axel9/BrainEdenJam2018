@@ -6,6 +6,7 @@ public class GunPowderBarrel : MonoBehaviour {
 
     [SerializeField] private float m_blastRadius;
     [SerializeField] private float m_blastForce;
+    [SerializeField] private float m_damageCaused = 5.0f;
 
     Collider[] m_colliderList;
 
@@ -22,9 +23,19 @@ public class GunPowderBarrel : MonoBehaviour {
     public void Detonate() {
         foreach(var collider in m_colliderList)
         {
-            if (collider.CompareTag("Explodable"))
+            if (collider.CompareTag("Explodable") || collider.CompareTag("Player"))
             {
                 collider.gameObject.GetComponent<Rigidbody>().AddExplosionForce(m_blastForce, GetComponent<Transform>().position, m_blastRadius);
+                Component isLiving = collider.gameObject.GetComponent<Humanoid>();
+                if (isLiving)
+                {
+                    collider.gameObject.GetComponent<Humanoid>().Damage(m_damageCaused);
+                }
+                isLiving = collider.gameObject.GetComponent<Enemy>();
+                if (isLiving)
+                {
+                    collider.gameObject.GetComponent<Enemy>().Damage(m_damageCaused);
+                }
             }
         }
     }
