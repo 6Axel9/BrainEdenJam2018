@@ -16,6 +16,7 @@ public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
     public float CollectSpeed;
 
     public int Score;
+    private bool buttonPressed;
 
     // Use this for initialization
     void Start () {
@@ -34,12 +35,11 @@ public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
 
     void FixedUpdate () {
 
-        if (Input.GetKeyDown(KeyCode.B) && Holding)
+        if (Input.GetMouseButtonDown(1) && Holding)
         {
             Throw(ThrowForce);
         }
-
-        if (Input.GetKeyDown(KeyCode.X) && Holding)
+        if (Input.GetKeyDown(KeyCode.Q) && Holding)
         {
             Swap(SwapForce);
         }
@@ -64,14 +64,14 @@ public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
         Walk(MovementSpeed * Input.GetAxis("Vertical"));
         Strafe(MovementSpeed * Input.GetAxis("Horizontal"));
 
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             Crouch(true);
         }
 
         Pickup(CollectSpeed);
 
-        if ((Input.GetKeyDown(KeyCode.G) && !Holding) || Holding)
+        if ((Input.GetKeyDown(KeyCode.E) && !Holding) || Holding)
         {
             Hold(CollectSpeed);
         }

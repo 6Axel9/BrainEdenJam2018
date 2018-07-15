@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
@@ -10,7 +11,7 @@ public class Gun : MonoBehaviour
     /// This Class is exlusively for shooting, it handles audio, direction and speed of the bullet. 
     /// </summary>
 
-    [SerializeField] private float m_offset;
+    [SerializeField] private Vector3 m_offset;
    
     [SerializeField] private float m_fire_rate = 0.25f;
     [SerializeField] private float m_cooldown;
@@ -24,6 +25,19 @@ public class Gun : MonoBehaviour
 
 
     [SerializeField] private AudioSource m_audio_source;
+
+    [SerializeField] private Transform m_camera;
+
+    //Everything for reload and cllip size
+    public int m_clipSize = 6;
+    public int m_bulletsInClip = 6;
+    public int m_totalAmmo = 24;
+    [SerializeField] private float m_reloadTime = 2.0f;
+    [SerializeField] private float m_repairTime = 6.0f;
+    [SerializeField] private Image m_reloadBar;
+    [SerializeField] private float m_percentComplete = 0;
+
+    public bool m_isJammed = false;
 
     public Transform Arm {
         get { return m_arm; }
@@ -60,7 +74,7 @@ public class Gun : MonoBehaviour
         set { m_fire_rate = value; }
     }
 
-    public float Offset {
+    public Vector3 Offset {
         get { return m_offset; }
         set { m_offset = value; }
     }
@@ -79,37 +93,128 @@ public class Gun : MonoBehaviour
             GetComponent<UnreliableBehaviour>().FailChance = 15f;
             if (!GetComponent<UnreliableBehaviour>().HasFailed())
             {
-                if(m_cooldown <= 0.0f)
+                if(m_cooldown <= 0.0f && m_bulletsInClip > 0 && !m_isJammed && m_totalAmmo > 0)
                 {
                     StartCoroutine(Shoot());
+                    m_bulletsInClip--;
+                    m_totalAmmo--;
                     m_cooldown = m_fire_rate;
                 }
             }
+            else if (GetComponent<UnreliableBehaviour>().HasFailed() && m_bulletsInClip > 0)
+            {
+                m_isJammed = true;
+            }
 
+            //IF GUN BACKFIRES
             GetComponent<UnreliableBehaviour>().FailChance = 10.0f;
-            if (GetComponent<UnreliableBehaviour>().HasFailed())
+            if (GetComponent<UnreliableBehaviour>().HasFailed() && !m_isJammed)
             {
                 GetComponentInParent<Rigidbody>().AddExplosionForce(1000.0f, GetComponent<Transform>().position, 20.0f);
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.R) && !m_isJammed && m_totalAmmo > 0)
+        {
+            StartCoroutine(Reload());
+        }
+        if (Input.GetKeyDown(KeyCode.R) && m_isJammed)
+        {
+            StartCoroutine(Repair());
+        }
+
         m_cooldown -= Time.deltaTime;
-	}
+        
+        m_reloadBar.fillAmount = m_percentComplete;
+        //m_reloadBar.fillAmount += Time.deltaTime;
+    }
+
+    public void AddAmmo(int amount)
+    {
+        m_totalAmmo += amount;
+    }
+
+    IEnumerator Repair()
+    {
+        float currentRepair = 0;
+        m_reloadBar.color = Color.red;
+
+        while (currentRepair < m_repairTime - 0.1f)
+        {
+
+            m_percentComplete = (currentRepair / m_repairTime);
+
+            currentRepair += Time.deltaTime;
+
+            yield return null;
+
+        }
+
+        m_isJammed = false;
+        m_reloadBar.fillAmount = 0;
+        m_percentComplete = 0.0f;
+    }
+
+    IEnumerator Reload() {
+        float currentReload = 0;
+        m_reloadBar.color = Color.green;
+
+        while (currentReload < m_reloadTime - 0.1f)
+        {
+
+            m_percentComplete = (currentReload / m_reloadTime);
+            
+            currentReload += Time.deltaTime;
+
+            yield return null;
+            
+        }
+
+        if(m_totalAmmo < m_clipSize)
+        {
+            m_bulletsInClip = m_totalAmmo;
+        }
+        else
+        {
+            m_bulletsInClip = m_clipSize;
+        }
+        m_reloadBar.fillAmount = 0;
+        m_percentComplete = 0.0f;
+
+    }
 
 
 	IEnumerator Shoot()
 	{
-		
-		//if (!m_audio_source.isPlaying) {
-			//Create a new bullet
-			GameObject newBullet = Instantiate (m_bullet, m_arm.position + m_arm.TransformDirection(Offset, 0.0f, 0.0f), m_arm.rotation);
+
+        //if (!m_audio_source.isPlaying) {
+
+        //Vector3 crosshair = m_camera.position + m_camera.forward * 55.0f;
+
+        Vector3 direction = Vector3.zero;
+        Vector3 bulletSpawn = m_arm.position + m_arm.TransformDirection(Offset);
+
+        Vector3 raycast = (m_camera.position + m_camera.forward * 30.0f) - bulletSpawn;
+
+        RaycastHit[] hitObjects = Physics.RaycastAll(m_camera.position, m_camera.forward);
+
+        if(hitObjects.Length > 0)
+        {
+            Vector3 hitPoint = hitObjects[0].point;
+            direction = hitPoint - bulletSpawn;
+        }
+        else
+        {
+            direction = raycast.normalized;
+        }
+
+        //Create a new bullet
+        GameObject newBullet = Instantiate (m_bullet, bulletSpawn, Quaternion.identity);
 
             m_audio_source.PlayOneShot (m_shooting_audio);
 
 			//Give it speed
-			newBullet.GetComponent<Bullet> ().Speed = m_bullet_speed * m_arm.right;
-
-        //yield return new WaitForSeconds (m_fire_rate);
+			newBullet.GetComponent<Bullet> ().Speed = m_bullet_speed * direction.normalized;
 
             yield return null;
 
