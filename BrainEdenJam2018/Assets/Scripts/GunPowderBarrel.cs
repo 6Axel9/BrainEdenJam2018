@@ -24,7 +24,7 @@ public class GunPowderBarrel : MonoBehaviour {
         {
             if (collider.CompareTag("Explodable"))
             {
-                collider.gameObject.GetComponent<Rigidbody>().AddExplosionForce(m_blastForce, GetComponent<Transform>().position, m_blastRadius);
+                collider.gameObject.GetComponent<Rigidbody>().AddExplosionForce(m_blastForce, GetComponent<Transform>().position, m_blastRadius, 1.0f, ForceMode.Impulse);
             }
         }
     }

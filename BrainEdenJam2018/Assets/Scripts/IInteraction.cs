@@ -26,7 +26,11 @@ public partial class Humanoid
         if (!Item)
         {
 
+<<<<<<< HEAD
             Collider[] hits = Physics.OverlapSphere(bulletSpawn, 0.5f);
+=======
+            Collider[] hits = Physics.OverlapSphere(Hand.position, 3.0f);
+>>>>>>> master
 
             foreach (Collider hit in hits)
             {
@@ -70,16 +74,27 @@ public partial class Humanoid
 
         if (Item)
         {
+<<<<<<< HEAD
             Collider[] hits = Physics.OverlapSphere(bulletSpawn, 1.0f);
 
             Rigidbody oldBody = Item.GetComponent<Rigidbody>();
+=======
+            Vector3 direction = Vector3.zero;
+            Vector3 bulletSpawn = Hand.position + Hand.TransformDirection(Offset);
+
+            Collider[] hits = Physics.OverlapSphere(Hand.position, 3.0f);
+>>>>>>> master
 
             bool found = false;
 
             foreach (Collider hit in hits)
             {
                 if (hit.gameObject.CompareTag("Item") &&
+<<<<<<< HEAD
                     Item != hit.gameObject && oldBody && !found)
+=======
+                    Item != hit.gameObject)
+>>>>>>> master
                 {
                     if (!Flip)
                     {
@@ -89,6 +104,10 @@ public partial class Humanoid
                     {
                         oldBody.AddForce(-Hand.right * force, ForceMode.Impulse);
                     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
                     Item = hit.gameObject;
                     Flip = !Flip;
                     found = true;
@@ -100,7 +119,11 @@ public partial class Humanoid
 
     public void Pickup(float speed)
     {
+<<<<<<< HEAD
         Collider[] hits = Physics.OverlapSphere(transform.position, 2.0f);
+=======
+        Collider[] hits = Physics.OverlapSphere(transform.position, 10.0f);
+>>>>>>> master
 
         foreach (Collider hit in hits)
         {
