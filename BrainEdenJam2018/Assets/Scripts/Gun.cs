@@ -211,16 +211,10 @@ public class Gun : MonoBehaviour
         //Create a new bullet
         GameObject newBullet = Instantiate (m_bullet, bulletSpawn, Quaternion.identity);
 
-            m_audio_source.PlayOneShot (m_shooting_audio);
+		//Give it speed
+		newBullet.GetComponent<Bullet> ().Speed = m_bullet_speed * direction.normalized;
 
-			//Give it speed
-			newBullet.GetComponent<Bullet> ().Speed = m_bullet_speed * direction.normalized;
-
-            yield return null;
-
-            //m_audio_source.PlayOneShot (m_reloading_audio);
-
-		//}
+        yield return null;
 		
 	}
 
