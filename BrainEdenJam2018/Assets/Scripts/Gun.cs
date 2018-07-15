@@ -29,7 +29,6 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform m_camera;
 
     //Everything for reload and cllip size
-<<<<<<< HEAD
     public int m_clipSize = 6;
     public int m_bulletsInClip = 6;
     public int m_totalAmmo = 24;
@@ -40,14 +39,6 @@ public class Gun : MonoBehaviour
 
     public bool m_isJammed = false;
 
-=======
-    [SerializeField] private int m_clipSize = 6;
-    [SerializeField] private int m_bulletsInClip = 6;
-    [SerializeField] private float m_reloadTime = 5.0f;
-    [SerializeField] private Image m_reloadBar;
-    [SerializeField] private float m_percentComplete = 0;
-
->>>>>>> master
     public Transform Arm {
         get { return m_arm; }
         set { m_arm = value; }
@@ -102,18 +93,11 @@ public class Gun : MonoBehaviour
             GetComponent<UnreliableBehaviour>().FailChance = 15f;
             if (!GetComponent<UnreliableBehaviour>().HasFailed())
             {
-<<<<<<< HEAD
                 if(m_cooldown <= 0.0f && m_bulletsInClip > 0 && !m_isJammed && m_totalAmmo > 0)
                 {
                     StartCoroutine(Shoot());
                     m_bulletsInClip--;
                     m_totalAmmo--;
-=======
-                if(m_cooldown <= 0.0f && m_bulletsInClip > 0)
-                {
-                    StartCoroutine(Shoot());
-                    m_bulletsInClip--;
->>>>>>> master
                     m_cooldown = m_fire_rate;
                 }
             }
@@ -130,7 +114,6 @@ public class Gun : MonoBehaviour
             }
         }
 
-<<<<<<< HEAD
         if (Input.GetKeyDown(KeyCode.R) && !m_isJammed && m_totalAmmo > 0)
         {
             StartCoroutine(Reload());
@@ -139,12 +122,6 @@ public class Gun : MonoBehaviour
         {
             StartCoroutine(Repair());
         }
-=======
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            StartCoroutine(Reload());
-        }
->>>>>>> master
 
         m_cooldown -= Time.deltaTime;
         
@@ -152,7 +129,6 @@ public class Gun : MonoBehaviour
         //m_reloadBar.fillAmount += Time.deltaTime;
     }
 
-<<<<<<< HEAD
     public void AddAmmo(int amount)
     {
         m_totalAmmo += amount;
@@ -182,10 +158,6 @@ public class Gun : MonoBehaviour
     IEnumerator Reload() {
         float currentReload = 0;
         m_reloadBar.color = Color.green;
-=======
-    IEnumerator Reload() {
-        float currentReload = 0;
->>>>>>> master
 
         while (currentReload < m_reloadTime - 0.1f)
         {
@@ -198,7 +170,6 @@ public class Gun : MonoBehaviour
             
         }
 
-<<<<<<< HEAD
         if(m_totalAmmo < m_clipSize)
         {
             m_bulletsInClip = m_totalAmmo;
@@ -207,9 +178,6 @@ public class Gun : MonoBehaviour
         {
             m_bulletsInClip = m_clipSize;
         }
-=======
-        m_bulletsInClip = m_clipSize;
->>>>>>> master
         m_reloadBar.fillAmount = 0;
         m_percentComplete = 0.0f;
 

@@ -8,7 +8,7 @@ using UnityEngine;
 public class MovementManager : MonoBehaviour {
 	
 	public List <Inputs> _steerings = new List <Inputs>();
-    
+
 	// Use this for initialization
 	void Start () {
 
@@ -24,7 +24,7 @@ public class MovementManager : MonoBehaviour {
 				FinalSteer += steering.Steering;
 			}
 								
-            GetComponent<Rigidbody>().AddForce(FinalSteer * GetComponent<Enemy>().m_moveSpeed);
+            GetComponent<Rigidbody>().AddForce(FinalSteer * 10);
 		}
 	}
 

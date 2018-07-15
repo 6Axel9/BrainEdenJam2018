@@ -4,11 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class InGamePauseMenu : MonoBehaviour
-{
+public class InGamePauseMenu : MonoBehaviour {
 
     public GameObject menu;
-<<<<<<< HEAD
 
 	void Start () {
 
@@ -17,18 +15,6 @@ public class InGamePauseMenu : MonoBehaviour
 
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.P)) {
-=======
-
-    void Start()
-    {
-        menu.SetActive(false);
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
->>>>>>> master
             if (menu.activeSelf)
             {
                 menu.SetActive(false);
@@ -42,7 +28,6 @@ public class InGamePauseMenu : MonoBehaviour
                 GameObject.FindGameObjectWithTag("Player").GetComponent<SmoothMouseLook>().enabled = false;
             }
         }
-<<<<<<< HEAD
 	}
 
 	public void BackToPlay(){
@@ -58,24 +43,4 @@ public class InGamePauseMenu : MonoBehaviour
 	public void QuitGame(){
 		Application.Quit ();
 	}
-=======
-    }
-
-    public void BackToPlay()
-    {
-        menu.SetActive(false);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<SmoothMouseLook>().enabled = true;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    public void GoToMainMenu()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
->>>>>>> master
 }

@@ -85,7 +85,7 @@ public class EnemyBrain : MonoBehaviour {
 		GetComponent<MovementManager> ().AddSteering(GetComponent<FollowInput>());
 		GetComponent<MovementManager> ().AddSteering(GetComponent<SeparationInput>());
 		while (m_nextState == null) {
-            //Debug.Log("FLOCKING");
+            Debug.Log("FLOCKING");
 			if (m_neighbors.Count > m_max_flock || m_leader == null) {
 				m_leader = null;
 				m_neighbors.Clear();
@@ -156,18 +156,10 @@ public class EnemyBrain : MonoBehaviour {
                 {
                     m_leader = coll.transform;
                 }
-
-                if (coll.CompareTag("Player"))
-                {
-                    m_nextState = Attack();
-                }
             }
             else
             {
-                if (coll.CompareTag("Player"))
-                {
-                    m_nextState = Attack();
-                }
+
             }
 		}
 	}
