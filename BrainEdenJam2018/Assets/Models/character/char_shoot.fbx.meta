@@ -139,6 +139,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
+<<<<<<< HEAD
     clipAnimations:
     - serializedVersion: 16
       name: Take 001
@@ -168,6 +169,9 @@ ModelImporter:
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
+=======
+    clipAnimations: []
+>>>>>>> master
     isReadable: 1
   meshes:
     lODScreenPercentages: []
