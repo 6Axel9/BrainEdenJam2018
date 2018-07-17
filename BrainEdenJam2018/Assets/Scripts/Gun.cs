@@ -37,6 +37,8 @@ public class Gun : MonoBehaviour
     [SerializeField] private Image m_reloadBar;
     [SerializeField] private float m_percentComplete = 0;
 
+    public GameObject m_fleshImpactEffect;
+
     public bool m_isJammed = false;
 
     public Transform Arm {
@@ -211,16 +213,12 @@ public class Gun : MonoBehaviour
         //Create a new bullet
         GameObject newBullet = Instantiate (m_bullet, bulletSpawn, Quaternion.identity);
 
-            m_audio_source.PlayOneShot (m_shooting_audio);
+		//Give it speed
+		newBullet.GetComponent<Bullet> ().Speed = m_bullet_speed * direction.normalized;
 
-			//Give it speed
-			newBullet.GetComponent<Bullet> ().Speed = m_bullet_speed * direction.normalized;
+        GetComponentInChildren<ParticleSystem>().Play();
 
-            yield return null;
-
-            //m_audio_source.PlayOneShot (m_reloading_audio);
-
-		//}
+        yield return null;
 		
 	}
 

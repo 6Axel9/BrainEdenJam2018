@@ -7,6 +7,9 @@ public class Bullet : MonoBehaviour
 
     [System.NonSerialized] private Vector3 m_speed;
     public float m_bulletDamage = 10f;
+    private Rigidbody Body;
+    private bool Shot;
+
 
     private GameObject m_bulletObject;
 
@@ -54,12 +57,22 @@ public class Bullet : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GetComponent<Rigidbody>().AddForce(m_speed);
+        Body = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
         Destroy(this.gameObject, m_life_span);
+    }
+
+    void FixedUpdate()
+    {
+        if (Body && !Shot)
+        {
+            Body.AddForce(m_speed);
+
+            Shot = true;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
