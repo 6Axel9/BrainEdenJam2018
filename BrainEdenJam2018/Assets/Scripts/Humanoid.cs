@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -34,6 +36,7 @@ public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
         if(m_health <= 0.0f)
         {
             m_isDead = true;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
         m_percentageHealth = (m_health / m_maxHealth);
@@ -94,8 +97,16 @@ public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
 
         if (collision.gameObject.CompareTag("Pickup"))
         {
+            var script = collision.gameObject.GetComponent<Pickup>();
+            if(script.isAmmo)
+            {
+                GetComponentInChildren<Gun>().AddAmmo(script.Quantity);
+            }
+            if (!script.isAmmo)
+            {
+                Heal(script.Quantity);
+            }
             Destroy(collision.gameObject);
-            Score++;
         }
 
         if (collision.gameObject.CompareTag("EnemyBullet"))

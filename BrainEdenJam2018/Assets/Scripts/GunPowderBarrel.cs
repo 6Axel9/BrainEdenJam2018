@@ -8,6 +8,8 @@ public class GunPowderBarrel : MonoBehaviour {
     [SerializeField] private float m_blastForce;
     [SerializeField] private float m_damageCaused = 5.0f;
 
+    private bool m_detonated = false;
+
     Collider[] m_colliderList;
 
 	// Use this for initialization
@@ -18,9 +20,16 @@ public class GunPowderBarrel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         m_colliderList = Physics.OverlapSphere(GetComponent<Transform>().position, m_blastRadius);
+
+        if(!GetComponentInChildren<ParticleSystem>().isPlaying && m_detonated)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void Detonate() {
+        m_detonated = true;
+
         foreach(var collider in m_colliderList)
         {
             if (collider.CompareTag("Explodable") || collider.CompareTag("Player"))
@@ -38,6 +47,10 @@ public class GunPowderBarrel : MonoBehaviour {
                 }
             }
         }
+        foreach(var component in GetComponentsInChildren<ParticleSystem>())
+        {
+            component.Play();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -45,7 +58,7 @@ public class GunPowderBarrel : MonoBehaviour {
         if (collision.gameObject.CompareTag("Bullet"))
         {
             Detonate();
-            Destroy(this.gameObject);
+            GetComponent<MeshRenderer>().enabled = false;
         }
     }
 }

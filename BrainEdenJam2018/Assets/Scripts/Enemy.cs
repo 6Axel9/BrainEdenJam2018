@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public partial class Enemy : MonoBehaviour, IMovement
 {
@@ -12,6 +13,10 @@ public partial class Enemy : MonoBehaviour, IMovement
     public float m_moveSpeed;
     public float m_jumpForce;
 
+    public GameObject m_player;
+
+
+    public Text _score;
 
     // Use this for initializationw
     void Start () {
@@ -29,6 +34,7 @@ public partial class Enemy : MonoBehaviour, IMovement
         if (Health <= 0.0f)
         {
             Kill();
+            m_player.GetComponent<Humanoid>().Score++;
         }
     }
 

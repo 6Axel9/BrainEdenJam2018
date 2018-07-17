@@ -37,6 +37,8 @@ public class Gun : MonoBehaviour
     [SerializeField] private Image m_reloadBar;
     [SerializeField] private float m_percentComplete = 0;
 
+    public GameObject m_fleshImpactEffect;
+
     public bool m_isJammed = false;
 
     public Transform Arm {
@@ -213,6 +215,8 @@ public class Gun : MonoBehaviour
 
 		//Give it speed
 		newBullet.GetComponent<Bullet> ().Speed = m_bullet_speed * direction.normalized;
+
+        GetComponentInChildren<ParticleSystem>().Play();
 
         yield return null;
 		

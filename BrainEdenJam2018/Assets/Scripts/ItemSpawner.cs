@@ -53,6 +53,8 @@ public class ItemSpawner : MonoBehaviour {
         }
         GameObject AmmoBox = Instantiate(m_ammo, m_ammoLocation.position, Quaternion.identity);
 
+        m_spawnAmmo = false;
+
         yield return null;
     }
 
@@ -63,7 +65,9 @@ public class ItemSpawner : MonoBehaviour {
         {
             m_tonicLocation = m_spawnPoints[Random.Range(0, m_spawnPoints.Count)];
         }
-        GameObject AmmoBox = Instantiate(m_ammo, m_tonicLocation.position, Quaternion.identity);
+        GameObject TonicBottle = Instantiate(m_tonic, m_tonicLocation.position, Quaternion.identity);
+
+        m_spawnTonic = false;
 
         yield return null;
     }
