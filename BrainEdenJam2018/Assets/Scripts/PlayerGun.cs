@@ -37,7 +37,7 @@ public class PlayerGun : MonoBehaviour
 
     private float m_percentComplete = 0;
 
-    public bool m_isJammed = false;
+    private bool m_isJammed = false;
 
     public float BulletSpeed {
         get { return m_bulletSpeed; }
@@ -69,6 +69,11 @@ public class PlayerGun : MonoBehaviour
         set { m_bulletOriginOffset = value; }
     }
 
+    public bool IsJammed {
+        get { return m_isJammed; }
+        set { m_isJammed = value; }
+    }
+
     void Start() 
 	{
 		//Lock and hide the mouse cursor 
@@ -81,7 +86,7 @@ public class PlayerGun : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
             GetComponent<UnreliableBehaviour>().FailChance = 15f;
             if (!GetComponent<UnreliableBehaviour>().HasFailed()) {
-                if(m_fireRateCooldown <= 0.0f && m_bulletsInClip > 0 && !m_isJammed && m_totalAmmo > 0) {
+                if(m_fireRateCooldown <= 0.0f && m_bulletsInClip > 0 && !IsJammed && m_totalAmmo > 0) {
                     StartCoroutine(Shoot());
                     m_bulletsInClip--;
                     m_totalAmmo--;
@@ -89,22 +94,22 @@ public class PlayerGun : MonoBehaviour
                 }
             }
             else if (GetComponent<UnreliableBehaviour>().HasFailed() && m_bulletsInClip > 0) {
-                m_isJammed = true;
+                IsJammed = true;
             }
 
             //IF GUN BACKFIRES
             GetComponent<UnreliableBehaviour>().FailChance = 10.0f;
-            if (GetComponent<UnreliableBehaviour>().HasFailed() && !m_isJammed)
+            if (GetComponent<UnreliableBehaviour>().HasFailed() && !IsJammed)
             {
                 GetComponentInParent<Rigidbody>().AddExplosionForce(1000.0f, GetComponent<Transform>().position, 20.0f);
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && !m_isJammed && m_totalAmmo > 0)
+        if (Input.GetKeyDown(KeyCode.R) && !IsJammed && m_totalAmmo > 0)
         {
             StartCoroutine(Reload());
         }
-        if (Input.GetKeyDown(KeyCode.R) && m_isJammed)
+        if (Input.GetKeyDown(KeyCode.R) && IsJammed)
         {
             StartCoroutine(Repair());
         }
@@ -127,7 +132,7 @@ public class PlayerGun : MonoBehaviour
             currentRepair += Time.deltaTime;
             yield return null;
         }
-        m_isJammed = false;
+        IsJammed = false;
         m_reloadBar.fillAmount = 0;
         m_percentComplete = 0.0f;
     }
@@ -170,8 +175,7 @@ public class PlayerGun : MonoBehaviour
                     enemy.Damage(m_bulletDamage);
                 }
                 GunPowderBarrel barrel = raycastHit.collider.GetComponent<GunPowderBarrel>();
-                if (barrel)
-                {
+                if (barrel) {
                     barrel.Detonate();
                 }
             }

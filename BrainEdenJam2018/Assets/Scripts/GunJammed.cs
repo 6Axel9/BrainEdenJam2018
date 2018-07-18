@@ -17,7 +17,7 @@ public class GunJammed : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (m_playerGun.m_isJammed)
+        if (m_playerGun.IsJammed)
         {
             m_gunIcon.color = Color.red;
             m_gunMaterial.color = Color.red;
