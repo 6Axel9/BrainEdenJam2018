@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class GameOverScript : MonoBehaviour {
 
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public void GoToMainMenu()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
