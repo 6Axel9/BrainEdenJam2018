@@ -28,11 +28,11 @@ public class EnemyGenerator : MonoBehaviour
     {
         if (_Enemy.Count < _Quantity && _Ready)
         {
-            StartCoroutine(SpawnPlatform());
+            StartCoroutine(SpawnEnemy());
         }
     }
 
-    IEnumerator SpawnPlatform()
+    IEnumerator SpawnEnemy()
     {
         _Ready = false;
 

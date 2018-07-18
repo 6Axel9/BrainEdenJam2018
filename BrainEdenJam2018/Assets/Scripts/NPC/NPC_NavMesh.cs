@@ -25,8 +25,6 @@ public class NPC_NavMesh : MonoBehaviour {
     void Start () {
 
         m_anim = GetComponentInChildren<Animator>();
-
-
         m_agent = this.GetComponent<NavMeshAgent>();
 
         if (!m_agent)
@@ -46,8 +44,6 @@ public class NPC_NavMesh : MonoBehaviour {
         }
 
         m_agent.destination = m_points[m_destination_point].position;
-
-
         m_destination_point = UnityEngine.Random.Range(0, m_points.Length);
     }
 
