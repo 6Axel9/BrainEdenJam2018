@@ -4280,6 +4280,16 @@ Prefab:
       propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114458719749908438, guid: fe0bf6c8b9052284bb4e92729c104469,
+        type: 2}
+      propertyPath: m_bulletsInClip
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114458719749908438, guid: fe0bf6c8b9052284bb4e92729c104469,
+        type: 2}
+      propertyPath: m_isVillain
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fe0bf6c8b9052284bb4e92729c104469, type: 2}
   m_IsPrefabParent: 0

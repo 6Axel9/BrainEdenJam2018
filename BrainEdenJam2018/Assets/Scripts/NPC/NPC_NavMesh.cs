@@ -11,10 +11,18 @@ public class NPC_NavMesh : MonoBehaviour {
     private float m_shooting_distance;
     private int m_destination_point = 0;
 
+    [SerializeField] private float m_fireRate = 2.5f;
+    private float m_fireRateCooldown;
+
+    [SerializeField] private int m_clipSize = 6;
+    [SerializeField] private int m_bulletsInClip = 6;
+    [SerializeField] private float m_reloadTime = 10.0f;
+
+
     NavMeshAgent m_agent;
 
     [SerializeField] private GameObject m_bullet;
-    public bool m_isVillan;
+    public bool m_isVillain;
 
     public GameObject Bullet {
         get { return m_bullet; }
@@ -79,8 +87,17 @@ public class NPC_NavMesh : MonoBehaviour {
                     {
                         m_agent.isStopped = true;
                         m_anim.SetBool("Shooting", true);
-                        /*SHOOT NEARBY THE PLAYER*/
-                        StartCoroutine(Shoot(player_pos));
+                        /*SHOOT NEARBY THE PLAYER IF ENEMY HAS BULLETS AND IS NOT ON COOLDOWN*/
+                        if(m_fireRateCooldown <= 0.0f && m_bulletsInClip > 0)
+                        {
+                            StartCoroutine(Shoot(player_pos));
+                            m_fireRateCooldown = m_fireRate;
+                            m_bulletsInClip--;
+                        }
+                        if(m_bulletsInClip == 0)
+                        {
+                            StartCoroutine(Reload());
+                        }
                     }
                 }
                 else
@@ -103,6 +120,19 @@ public class NPC_NavMesh : MonoBehaviour {
             }
         }
 
+        m_fireRateCooldown -= Time.deltaTime;
+    }
+
+    IEnumerator Reload() {
+        float currentReload = 0;
+        while(currentReload < m_reloadTime - 0.1f)
+        {
+            currentReload += Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("Reload Complete!");
+        m_bulletsInClip = m_clipSize;
+        
     }
 
     IEnumerator Shoot(Transform target)
