@@ -100,7 +100,7 @@ public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
             var script = collision.gameObject.GetComponent<Pickup>();
             if(script.isAmmo)
             {
-                GetComponentInChildren<Gun>().AddAmmo(script.Quantity);
+                GetComponentInChildren<PlayerGun>().AddAmmo(script.Quantity);
             }
             if (!script.isAmmo)
             {

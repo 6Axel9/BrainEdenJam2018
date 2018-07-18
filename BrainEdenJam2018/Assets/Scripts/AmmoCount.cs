@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AmmoCount : MonoBehaviour {
 
-    [SerializeField] private Gun m_playerGun;
+    [SerializeField] private PlayerGun m_playerGun;
     [SerializeField] private Image[] m_bulletImages;
     [SerializeField] private Text m_ammoCount;
 

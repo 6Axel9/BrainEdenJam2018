@@ -29,6 +29,7 @@ public class GunPowderBarrel : MonoBehaviour {
 
     public void Detonate() {
         m_detonated = true;
+        GetComponent<MeshRenderer>().enabled = false;
 
         foreach(var collider in m_colliderList)
         {
@@ -50,15 +51,6 @@ public class GunPowderBarrel : MonoBehaviour {
         foreach(var component in GetComponentsInChildren<ParticleSystem>())
         {
             component.Play();
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            Detonate();
-            GetComponent<MeshRenderer>().enabled = false;
         }
     }
 }

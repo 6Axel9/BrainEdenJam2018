@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class Gun : MonoBehaviour
+public class PlayerGun : MonoBehaviour
 {
     /// <summary>
     /// This Class is exlusively for shooting, it handles audio, direction and speed of the bullet. 
@@ -24,16 +24,18 @@ public class Gun : MonoBehaviour
     [SerializeField] private AudioClip m_reloading_audio;
     [SerializeField] private AudioSource m_audio_source;
 
-    [SerializeField] private Transform m_cameraTransform;
+    private Camera m_camera;
 
     //Everything for reload and cllip size
     public int m_clipSize = 6;
     public int m_bulletsInClip = 6;
     public int m_totalAmmo = 24;
+
     [SerializeField] private float m_reloadTime = 2.0f;
     [SerializeField] private float m_repairTime = 6.0f;
     [SerializeField] private Image m_reloadBar;
-    [SerializeField] private float m_percentComplete = 0;
+
+    private float m_percentComplete = 0;
 
     public bool m_isJammed = false;
 
@@ -71,7 +73,7 @@ public class Gun : MonoBehaviour
 	{
 		//Lock and hide the mouse cursor 
 		Cursor.lockState = CursorLockMode.Locked;
-
+        m_camera = GameObject.Find("Main Camera").GetComponent<Camera>();
 	}
 
 	void Update()
@@ -159,13 +161,18 @@ public class Gun : MonoBehaviour
 
         RaycastHit raycastHit;
 
-        if(Physics.Raycast(cameraRaycastOrigin, m_cameraTransform.forward, out raycastHit, m_maxShootingDistance)) {
+        if(Physics.Raycast(cameraRaycastOrigin, m_camera.transform.forward, out raycastHit, m_maxShootingDistance)) {
             raycastHit.collider.gameObject.ToString();
             bulletDirection = raycastHit.point - (transform.position + m_bulletOriginOffset);
             if(Physics.Raycast(transform.position + m_bulletOriginOffset, bulletDirection, out raycastHit, m_maxShootingDistance)) {
                 Enemy enemy = raycastHit.collider.gameObject.GetComponent<Enemy>();
                 if (enemy) {
                     enemy.Damage(m_bulletDamage);
+                }
+                GunPowderBarrel barrel = raycastHit.collider.GetComponent<GunPowderBarrel>();
+                if (barrel)
+                {
+                    barrel.Detonate();
                 }
             }
         }

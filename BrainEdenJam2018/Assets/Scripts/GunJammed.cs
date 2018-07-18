@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GunJammed : MonoBehaviour {
 
-    [SerializeField] private Gun m_playerGun;
+    [SerializeField] private PlayerGun m_playerGun;
 
     [SerializeField] private Image m_gunIcon;
     [SerializeField] private Material m_gunMaterial;
