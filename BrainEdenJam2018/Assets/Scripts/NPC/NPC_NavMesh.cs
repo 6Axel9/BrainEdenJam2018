@@ -16,8 +16,7 @@ public class NPC_NavMesh : MonoBehaviour {
     [SerializeField] private GameObject m_bullet;
     public bool m_isVillan;
 
-    public GameObject Bullet
-    {
+    public GameObject Bullet {
         get { return m_bullet; }
         set { m_bullet = value; }
     }
@@ -109,7 +108,6 @@ public class NPC_NavMesh : MonoBehaviour {
         }
 
     }
-
 
     IEnumerator Shoot(Transform target)
     {
