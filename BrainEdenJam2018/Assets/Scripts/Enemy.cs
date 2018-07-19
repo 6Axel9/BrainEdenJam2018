@@ -9,14 +9,7 @@ public partial class Enemy : MonoBehaviour, IMovement
     private Animator m_anim;
     private Rigidbody m_body;
 
-    public float m_animSpeed;
-    public float m_moveSpeed;
-    public float m_jumpForce;
-
     public GameObject m_player;
-
-
-    public Text _score;
 
     // Use this for initializationw
     void Start () {
