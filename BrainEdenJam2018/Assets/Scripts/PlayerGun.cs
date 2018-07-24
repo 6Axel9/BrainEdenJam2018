@@ -26,6 +26,11 @@ public class PlayerGun : MonoBehaviour
 
     private Camera m_camera;
 
+    //These two variables are here to stop the concurrent running of reload and repair
+    //coroutines, so tey can only run 1 at a time.
+    private bool m_repairStarted = false;
+    private bool m_reloadStarted = false;
+
     //Everything for reload and cllip size
     public int m_clipSize = 6;
     public int m_bulletsInClip = 6;
@@ -105,12 +110,14 @@ public class PlayerGun : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && !IsJammed && m_totalAmmo > 0)
+        if (Input.GetKeyDown(KeyCode.R) && !IsJammed && m_totalAmmo > 0 && !m_reloadStarted)
         {
+            m_reloadStarted = true;
             StartCoroutine(Reload());
         }
-        if (Input.GetKeyDown(KeyCode.R) && IsJammed)
+        if (Input.GetKeyDown(KeyCode.R) && IsJammed && !m_repairStarted)
         {
+            m_repairStarted = true;
             StartCoroutine(Repair());
         }
 
@@ -135,6 +142,8 @@ public class PlayerGun : MonoBehaviour
         IsJammed = false;
         m_reloadBar.fillAmount = 0;
         m_percentComplete = 0.0f;
+
+        m_repairStarted = false;
     }
 
     IEnumerator Reload() {
@@ -155,6 +164,8 @@ public class PlayerGun : MonoBehaviour
         }
         m_reloadBar.fillAmount = 0;
         m_percentComplete = 0.0f;
+
+        m_reloadStarted = false;
     }
 
 

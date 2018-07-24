@@ -11,13 +11,19 @@ public class NPC_NavMesh : MonoBehaviour {
     private float m_shooting_distance;
     private int m_destination_point = 0;
 
-    [SerializeField] private float m_fireRate = 2.5f;
+    [SerializeField] private float m_fireRate = 0.8f;
     private float m_fireRateCooldown;
 
     [SerializeField] private int m_clipSize = 6;
     [SerializeField] private int m_bulletsInClip = 6;
     [SerializeField] private float m_reloadTime = 10.0f;
 
+    private bool m_reloadStarted = false;
+
+    //TODO: Need some way to stop enemies from spinning during a reload cycle...
+    //Just looks really strange that they stop shooting and the pirouette........
+
+    //TODO: Need to ask Andrew for a holster animation? would be cool if tey actually got a gun from their hip xD
 
     NavMeshAgent m_agent;
 
@@ -94,8 +100,9 @@ public class NPC_NavMesh : MonoBehaviour {
                             m_fireRateCooldown = m_fireRate;
                             m_bulletsInClip--;
                         }
-                        if(m_bulletsInClip == 0)
+                        if(m_bulletsInClip == 0 && !m_reloadStarted)
                         {
+                            m_reloadStarted = true;
                             StartCoroutine(Reload());
                         }
                     }
@@ -132,7 +139,10 @@ public class NPC_NavMesh : MonoBehaviour {
         }
         Debug.Log("Reload Complete!");
         m_bulletsInClip = m_clipSize;
-        
+
+        //This bool was added to stop co-routine from running concurrently underneath itself
+        //this should stop the 6 shot revolver working like an uzi after reload.
+        m_reloadStarted = false;
     }
 
     IEnumerator Shoot(Transform target)
