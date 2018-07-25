@@ -21,6 +21,10 @@ public class Health3DBar : MonoBehaviour {
 
         Health = EnemyScript.Health/100 * MaxHealth;
 
+        if(Health < 0.0f)
+        {
+            Health = 0.0f; ;
+        }
         transform.localScale = new Vector3(Health, transform.localScale.y, transform.localScale.z);
 	}
 }

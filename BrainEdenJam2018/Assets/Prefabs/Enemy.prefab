@@ -478,7 +478,6 @@ GameObject:
   - component: {fileID: 54111473781858670}
   - component: {fileID: 114458719749908438}
   - component: {fileID: 195981162939489958}
-  - component: {fileID: 114809930654415246}
   - component: {fileID: 136304347352754180}
   m_Layer: 0
   m_Name: Enemy
@@ -1770,6 +1769,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c19d86d20ad754fb1c9b47da5140e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_health: 100
+  m_maxHealth: 100
+  m_isDead: 0
   m_points:
   - {fileID: 4285495920895918, guid: f9fbb9336523fa54d95a27efee15174c, type: 2}
   - {fileID: 4488101750516582, guid: f9fbb9336523fa54d95a27efee15174c, type: 2}
@@ -1785,27 +1787,9 @@ MonoBehaviour:
   m_clipSize: 6
   m_bulletsInClip: 1
   m_reloadTime: 10
+  m_player: {fileID: 0}
   m_bullet: {fileID: 1749925551058766, guid: f1cb85c76dc9cd347bed895ed616789b, type: 2}
   m_isVillain: 1
---- !u!114 &114809930654415246
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1612700647488354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d05b35b4cefb4947bdd16d6ef25d725, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_animSpeed: 0
-  m_moveSpeed: 0
-  m_jumpForce: 0
-  m_player: {fileID: 1810855780014062, guid: c181d1c7f37561747a2b7f30cd768636, type: 2}
-  _score: {fileID: 0}
-  m_health: 100
-  m_maxHealth: 100
-  m_isDead: 0
 --- !u!136 &136304347352754180
 CapsuleCollider:
   m_ObjectHideFlags: 1

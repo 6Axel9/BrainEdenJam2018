@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NPC_NavMesh : MonoBehaviour {
+public partial class Enemy : MonoBehaviour, IMovement {
 
     private Animator m_anim;
     public Transform[] m_points;
@@ -19,6 +19,9 @@ public class NPC_NavMesh : MonoBehaviour {
     [SerializeField] private float m_reloadTime = 10.0f;
 
     private bool m_reloadStarted = false;
+
+    public GameObject m_player;
+    private Rigidbody m_body;
 
     //TODO: Need some way to stop enemies from spinning during a reload cycle...
     //Just looks really strange that they stop shooting and the pirouette........
@@ -39,13 +42,15 @@ public class NPC_NavMesh : MonoBehaviour {
     void Start () {
 
         m_anim = GetComponentInChildren<Animator>();
-        m_agent = this.GetComponent<NavMeshAgent>();
+        m_agent = GetComponent<NavMeshAgent>();
 
         if (!m_agent)
         {
             Debug.Log("No Agent Found");
             return;
         }
+
+        m_body = GetComponent<Rigidbody>();
 
         GotoNextPoint();
     }
@@ -61,13 +66,17 @@ public class NPC_NavMesh : MonoBehaviour {
         m_destination_point = UnityEngine.Random.Range(0, m_points.Length);
     }
 
-
+    
     // Update is called once per frame
     void Update () {
-
+        if(Health <= 0.0f)
+        {
+            Kill();
+            m_player.GetComponent<Humanoid>().Score++;
+        }
         m_shooting_distance = UnityEngine.Random.Range(6, 8);
 
-        if (m_agent != null)
+        if (m_agent != null && !IsDead)
         {
             Collider[] hit_Colliders = Physics.OverlapSphere(transform.position, UnityEngine.Random.Range(10, 15));
 
@@ -128,6 +137,27 @@ public class NPC_NavMesh : MonoBehaviour {
         }
 
         m_fireRateCooldown -= Time.deltaTime;
+    }
+
+    void FixedUpdate()
+    {
+        if(m_body.velocity.magnitude > 0.1f)
+        {
+            m_anim.SetFloat("Velocity", m_body.velocity.magnitude);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            IsJumping = false;
+            IsFalling = false;
+        }
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Damage(collision.gameObject.GetComponent<Bullet>().m_bulletDamage);
+        }
     }
 
     IEnumerator Reload() {
