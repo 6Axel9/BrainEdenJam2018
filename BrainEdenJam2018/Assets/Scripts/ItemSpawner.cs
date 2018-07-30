@@ -6,8 +6,11 @@ public class ItemSpawner : MonoBehaviour {
 
     public List<Transform> m_spawnPoints = new List<Transform>();
 
-    public GameObject m_ammo;
-    public GameObject m_tonic;
+    public GameObject m_ammoPrefab;
+    public GameObject m_tonicPrefab;
+
+    public GameObject m_spawnedAmmo;
+    public GameObject m_spawnedTonic;
 
     public float m_timer;
     public bool m_spawnAmmo;
@@ -21,6 +24,9 @@ public class ItemSpawner : MonoBehaviour {
 	void Start () {
         m_spawnAmmo = true;
         m_spawnTonic = true;
+
+        m_spawnedAmmo = null;
+        m_spawnedTonic = null;
     }
 	
 	// Update is called once per frame
@@ -34,11 +40,11 @@ public class ItemSpawner : MonoBehaviour {
             StartCoroutine(SpawnTonic());
         }
 
-        if (!m_ammo)
+        if (!m_spawnedAmmo)
         {
             m_spawnAmmo = true;
         }
-        if (!m_tonic)
+        if (!m_spawnedTonic)
         {
             m_spawnTonic = true;
         }
@@ -46,28 +52,27 @@ public class ItemSpawner : MonoBehaviour {
 
     IEnumerator SpawnAmmo()
     {
+        m_spawnAmmo = false;
         m_ammoLocation = m_spawnPoints[Random.Range(0, m_spawnPoints.Count)];
         while(m_ammoLocation == m_tonicLocation)
         {
             m_ammoLocation = m_spawnPoints[Random.Range(0, m_spawnPoints.Count)];
         }
-        GameObject AmmoBox = Instantiate(m_ammo, m_ammoLocation.position, Quaternion.identity);
-
-        m_spawnAmmo = false;
+        m_spawnedAmmo = Instantiate(m_ammoPrefab, m_ammoLocation.position, Quaternion.identity);
 
         yield return null;
     }
 
     IEnumerator SpawnTonic()
     {
+        m_spawnTonic = false;
         m_tonicLocation = m_spawnPoints[Random.Range(0, m_spawnPoints.Count)];
         while (m_tonicLocation == m_ammoLocation)
         {
             m_tonicLocation = m_spawnPoints[Random.Range(0, m_spawnPoints.Count)];
         }
-        GameObject TonicBottle = Instantiate(m_tonic, m_tonicLocation.position, Quaternion.identity);
+        m_spawnedTonic = Instantiate(m_tonicPrefab, m_tonicLocation.position, Quaternion.identity);
 
-        m_spawnTonic = false;
 
         yield return null;
     }

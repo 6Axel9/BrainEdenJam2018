@@ -11,7 +11,7 @@ public partial class Enemy : MonoBehaviour, IMovement {
     private float m_shooting_distance;
     private int m_destination_point = 0;
 
-    [SerializeField] private float m_fireRate = 0.8f;
+    [SerializeField] private float m_fireRate = 0.2f;
     private float m_fireRateCooldown;
 
     [SerializeField] private int m_clipSize = 6;
@@ -19,6 +19,7 @@ public partial class Enemy : MonoBehaviour, IMovement {
     [SerializeField] private float m_reloadTime = 10.0f;
 
     private bool m_reloadStarted = false;
+    private bool m_canShoot = false;
 
     public GameObject m_player;
     private Rigidbody m_body;
@@ -26,17 +27,9 @@ public partial class Enemy : MonoBehaviour, IMovement {
     //TODO: Need some way to stop enemies from spinning during a reload cycle...
     //Just looks really strange that they stop shooting and the pirouette........
 
-    //TODO: Need to ask Andrew for a holster animation? would be cool if tey actually got a gun from their hip xD
-
     NavMeshAgent m_agent;
 
-    [SerializeField] private GameObject m_bullet;
     public bool m_isVillain;
-
-    public GameObject Bullet {
-        get { return m_bullet; }
-        set { m_bullet = value; }
-    }
 
     // Use this for initialization
     void Start () {
@@ -74,11 +67,11 @@ public partial class Enemy : MonoBehaviour, IMovement {
             Kill();
             m_player.GetComponent<Humanoid>().Score++;
         }
-        m_shooting_distance = UnityEngine.Random.Range(6, 8);
+        m_shooting_distance = 8.0f;
 
         if (m_agent != null && !IsDead)
         {
-            Collider[] hit_Colliders = Physics.OverlapSphere(transform.position, UnityEngine.Random.Range(10, 15));
+            Collider[] hit_Colliders = Physics.OverlapSphere(transform.position, 10.0f); //Got Rid of random overlap range
 
             Transform player_pos = null;
 
@@ -90,6 +83,7 @@ public partial class Enemy : MonoBehaviour, IMovement {
                     player_pos = item.transform;
                 }
             }
+
             /*IF THE PLAYER IS FOUND*/
             if (player_pos)
             {
@@ -102,17 +96,28 @@ public partial class Enemy : MonoBehaviour, IMovement {
                     {
                         m_agent.isStopped = true;
                         m_anim.SetBool("Shooting", true);
+
+                        /*CHECKS TO SEE IF ANIMATION FOR SHOOOTING IS DONE BEFORE ACTUALLY SHOOTING*/
+                        if (m_anim.GetCurrentAnimatorStateInfo(0).IsName("StartShooting"))
+                        {
+                            if(m_anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f)
+                            {
+                                m_canShoot = true;
+                            }
+                        }
+
                         /*SHOOT NEARBY THE PLAYER IF ENEMY HAS BULLETS AND IS NOT ON COOLDOWN*/
-                        if(m_fireRateCooldown <= 0.0f && m_bulletsInClip > 0)
+                        if (m_fireRateCooldown <= 0.0f && m_bulletsInClip > 0 && m_canShoot)
                         {
                             StartCoroutine(Shoot(player_pos));
                             m_fireRateCooldown = m_fireRate;
                             m_bulletsInClip--;
                         }
-                        if(m_bulletsInClip == 0 && !m_reloadStarted)
+                        if (m_bulletsInClip == 0 && !m_reloadStarted)
                         {
                             m_reloadStarted = true;
                             StartCoroutine(Reload());
+                            m_canShoot = false;
                         }
                     }
                 }
@@ -124,15 +129,15 @@ public partial class Enemy : MonoBehaviour, IMovement {
                         m_agent.SetDestination(player_pos.position);
                         m_agent.isStopped = false;
                         m_anim.SetBool("Shooting", false);
+                        m_canShoot = false;
                     }
                 }
-
-                /*IF NONE OF THE ABOVE, CONTINUE YOUR BORING WALK TROUGH WAYPOINTS*/
-                if (!m_agent.pathPending && m_agent.remainingDistance < 0.5f)
-                {
-                    GotoNextPoint();
-                }
-
+            }
+            /*IF NONE OF THE ABOVE, CONTINUE YOUR BORING WALK TROUGH WAYPOINTS*/
+            else if (!m_agent.pathPending && m_agent.remainingDistance < 0.5f)
+            {
+                m_canShoot = false;
+                GotoNextPoint();
             }
         }
 
@@ -154,10 +159,6 @@ public partial class Enemy : MonoBehaviour, IMovement {
             IsJumping = false;
             IsFalling = false;
         }
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            Damage(collision.gameObject.GetComponent<Bullet>().m_bulletDamage);
-        }
     }
 
     IEnumerator Reload() {
@@ -167,7 +168,6 @@ public partial class Enemy : MonoBehaviour, IMovement {
             currentReload += Time.deltaTime;
             yield return null;
         }
-        Debug.Log("Reload Complete!");
         m_bulletsInClip = m_clipSize;
 
         //This bool was added to stop co-routine from running concurrently underneath itself
@@ -178,16 +178,20 @@ public partial class Enemy : MonoBehaviour, IMovement {
     IEnumerator Shoot(Transform target)
     {
         Vector3 bulletSpawn = transform.position + transform.TransformDirection(new Vector3(0.0f, 0.0f, 1));
-
         Vector3 direction_to_player = target.position - transform.position;
 
-        //Create a new bullet
-        GameObject newBullet = Instantiate(Bullet, bulletSpawn, Quaternion.identity);
+        RaycastHit raycastHit;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction_to_player), 5);
+        if(Physics.Raycast(bulletSpawn, direction_to_player, out raycastHit, m_shooting_distance))
+        {
+            Humanoid player = raycastHit.collider.gameObject.GetComponent<Humanoid>();
+            if (player)
+            {
+                player.Damage(3.0f);
+            }
+        }
 
-        //Give it speed
-        newBullet.GetComponent<Bullet>().Speed = 5000 * direction_to_player.normalized;
+        GetComponentInChildren<ParticleSystem>().Play();
 
         yield return null;
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyGenerator : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     public List<GameObject> _EnemyPrefabs = new List<GameObject>();
     public List<Transform> _SpawnPoints = new List<Transform>();
@@ -12,7 +12,9 @@ public class EnemyGenerator : MonoBehaviour
     public float Timer;
     private bool _Ready;
 
-    private List<GameObject> _Enemy = new List<GameObject>();
+    public GameObject m_player;
+
+    public List<GameObject> _Enemy = new List<GameObject>();
 
     // Use this for initialization
     void Start ()
@@ -26,6 +28,15 @@ public class EnemyGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        for(int i = 0; i < _Enemy.Count; i++)
+        {
+            if (_Enemy[i].GetComponent<Enemy>().IsDead)
+            {
+                GameObject enemy = _Enemy[i];
+                _Enemy.RemoveAt(i);
+                Destroy(enemy);
+            }
+        }
         if (_Enemy.Count < _Quantity && _Ready)
         {
             StartCoroutine(SpawnEnemy());
@@ -42,6 +53,7 @@ public class EnemyGenerator : MonoBehaviour
         var prefab = _EnemyPrefabs[Random.Range(0, _EnemyPrefabs.Count)];
         var newPlatform = Instantiate(prefab, offset, Quaternion.identity);
         newPlatform.transform.parent = transform;
+        newPlatform.GetComponent<Enemy>().m_player = m_player;
 
         _Enemy.Add(newPlatform);
 
