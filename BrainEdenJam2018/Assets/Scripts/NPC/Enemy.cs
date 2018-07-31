@@ -14,6 +14,8 @@ public partial class Enemy : MonoBehaviour, IMovement {
     [SerializeField] private float m_fireRate = 0.2f;
     private float m_fireRateCooldown;
 
+    [SerializeField] private Transform player_pos;
+
     [SerializeField] private int m_clipSize = 6;
     [SerializeField] private int m_bulletsInClip = 6;
     [SerializeField] private float m_reloadTime = 10.0f;
@@ -73,7 +75,7 @@ public partial class Enemy : MonoBehaviour, IMovement {
         {
             Collider[] hit_Colliders = Physics.OverlapSphere(transform.position, 10.0f); //Got Rid of random overlap range
 
-            Transform player_pos = null;
+            player_pos = null;
 
             /*FOR EACH OBJECT IN A AREA OF 15 RADIUS AROUND THE NPC POSITION*/
             foreach (var item in hit_Colliders)
@@ -126,6 +128,7 @@ public partial class Enemy : MonoBehaviour, IMovement {
                     /*IF THE PLAYER IS IN FRONT OF THE PLAYER AND IS NOT SHOOTING*/
                     if (Vector3.Dot((player_pos.position - transform.position).normalized, transform.forward) > 0.5f)
                     {
+                        Debug.Log("Going to player pos...");
                         m_agent.SetDestination(player_pos.position);
                         m_agent.isStopped = false;
                         m_anim.SetBool("Shooting", false);
@@ -137,8 +140,18 @@ public partial class Enemy : MonoBehaviour, IMovement {
             else if (!m_agent.pathPending && m_agent.remainingDistance < 0.5f)
             {
                 m_canShoot = false;
+                Debug.Log("Getting a new path...");
                 GotoNextPoint();
             }
+            else
+            {
+                //Debug.Log("Just debugging");
+            }
+        }
+
+        if (!m_agent.hasPath)
+        {
+            Debug.Log("Enemy has lost its path....");
         }
 
         m_fireRateCooldown -= Time.deltaTime;

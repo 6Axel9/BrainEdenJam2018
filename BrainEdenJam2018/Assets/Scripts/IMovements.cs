@@ -62,8 +62,6 @@ public partial class Humanoid
         //Anim.SetTrigger("Jump");
         //Anim.SetFloat("Speed", Body.velocity.magnitude);
         Body.AddForce(Vector3.up * force, ForceMode.Impulse);
-
-        Debug.Log("Jump");
     }
 
     public void Fall(float force)
@@ -74,7 +72,6 @@ public partial class Humanoid
         //Anim.SetFloat("Speed", Body.velocity.magnitude);
         Body.AddForce(Vector3.down * force);
 
-        Debug.Log("Fall");
     }
 
     public void Crouch(bool crouch)
