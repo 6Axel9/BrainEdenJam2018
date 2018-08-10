@@ -174,7 +174,7 @@ public class PlayerGun : MonoBehaviour
         if(Physics.Raycast(cameraRaycastOrigin, m_camera.transform.forward, out raycastHit, m_maxShootingDistance)) {
             bulletDirection = raycastHit.point - (transform.position + m_bulletOriginOffset);
             if(Physics.Raycast(transform.position + m_bulletOriginOffset, bulletDirection, out raycastHit, m_maxShootingDistance)) {
-                Enemy enemy = raycastHit.collider.gameObject.GetComponent<Enemy>();
+                EnemyAI enemy = raycastHit.collider.gameObject.GetComponent<EnemyAI>();
                 if (enemy) {
                     enemy.Damage(m_bulletDamage);
                 }

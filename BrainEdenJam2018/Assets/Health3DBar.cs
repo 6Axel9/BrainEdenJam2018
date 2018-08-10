@@ -6,12 +6,12 @@ public class Health3DBar : MonoBehaviour {
 
     private float MaxHealth;
     private float Health;
-    private Enemy EnemyScript;
+    private EnemyAI EnemyScript;
 
 	// Use this for initialization
 	void Start () {
 
-        EnemyScript = GetComponentInParent<Enemy>();
+        EnemyScript = GetComponentInParent<EnemyAI>();
 
         MaxHealth = transform.localScale.x;
 	}

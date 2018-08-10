@@ -52,6 +52,10 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
     [SerializeField] private float m_maxHealth = 100f;
     private bool m_isDead = false;
 
+    public float Health {
+        get { return m_health; }
+    }
+
 
     // Use this for initialization
     void Start () {
