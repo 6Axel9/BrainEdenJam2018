@@ -119,7 +119,7 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
                         }
                     }
                     //If enemy can shoot, then shoot.
-                    if(m_fireRate <= 0.0f && m_bulletsInClip > 0 && m_canShoot) {
+                    if(m_fireRateCooldown <= 0.0f && m_bulletsInClip > 0 && m_canShoot) {
                         StartCoroutine(Shoot(m_target));
                         m_fireRateCooldown = m_fireRate;
                         m_bulletsInClip--;
@@ -127,8 +127,8 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
                     //If bullet clip is empty then reload.
                     if(m_bulletsInClip == 0 && m_canReload) {
                         m_canReload = false;
-                        StartCoroutine(Reload());
                         m_canShoot = false;
+                        StartCoroutine(Reload());
                     }
                 }
                 //If not within shooting distance.
@@ -156,8 +156,6 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
                 }
                 //If still going to a waypoint but reached destination
                 else if(!m_agent.pathPending && m_agent.remainingDistance < 0.5f) {
-                    //Turn of shooting just incase
-                    m_canShoot = false;
                     //Get a new destination and path to it.
                     if (!GoToNextPoint()) {
                         Debug.Log("Could not get new destination in EnemyAI.cs !");
@@ -165,8 +163,6 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
                 }
                 //Allow agent to start running again.
                 m_agent.isStopped = false;
-                //Stop enemy shooting
-                m_canShoot = false;
             }
         }
         //Increment fire rate cooldown.
