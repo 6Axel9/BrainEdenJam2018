@@ -794,7 +794,7 @@ GameObject:
   - component: {fileID: 116298640}
   m_Layer: 0
   m_Name: TallHouse (4)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -1009,7 +1009,7 @@ GameObject:
   - component: {fileID: 148801991}
   m_Layer: 0
   m_Name: TallHouse (9)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -1101,7 +1101,7 @@ GameObject:
   - component: {fileID: 150097380}
   m_Layer: 0
   m_Name: MedHouse (4)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -1255,7 +1255,7 @@ GameObject:
   - component: {fileID: 165059982}
   m_Layer: 0
   m_Name: TallHouse (12)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -2228,7 +2228,7 @@ GameObject:
   - component: {fileID: 361782733}
   m_Layer: 0
   m_Name: LongHouse (2)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -2871,6 +2871,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4488101750516582, guid: f9fbb9336523fa54d95a27efee15174c,
     type: 2}
   m_PrefabInternal: {fileID: 1602040027}
+--- !u!4 &454014261 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4006713862291166, guid: 2f03beb92c5ff9e42b3d4924e9bec8ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 859157627}
 --- !u!1 &456845922 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 2cd9b460c7ef1460a84950eb9debd201,
@@ -3071,7 +3076,7 @@ GameObject:
   - component: {fileID: 478327856}
   m_Layer: 0
   m_Name: LongHouse (1)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -3285,7 +3290,7 @@ GameObject:
   - component: {fileID: 529546184}
   m_Layer: 0
   m_Name: LongHouse (5)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -4021,7 +4026,7 @@ GameObject:
   - component: {fileID: 601401435}
   m_Layer: 0
   m_Name: TallHouse (13)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -4360,7 +4365,7 @@ GameObject:
   - component: {fileID: 675163458}
   m_Layer: 0
   m_Name: LongHouse (7)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -4663,7 +4668,7 @@ GameObject:
   - component: {fileID: 751037740}
   m_Layer: 0
   m_Name: TallHouse (14)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -4835,7 +4840,7 @@ GameObject:
   - component: {fileID: 800882749}
   m_Layer: 0
   m_Name: TallHouse
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -5115,6 +5120,16 @@ Prefab:
       propertyPath: _SpawnPoints.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114262109737277814, guid: 2f03beb92c5ff9e42b3d4924e9bec8ca,
+        type: 2}
+      propertyPath: m_spawnPoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114262109737277814, guid: 2f03beb92c5ff9e42b3d4924e9bec8ca,
+        type: 2}
+      propertyPath: m_enemyPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4006713862291166, guid: 2f03beb92c5ff9e42b3d4924e9bec8ca, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5237,6 +5252,37 @@ Prefab:
       propertyPath: m_wayPoints.Array.data[9]
       value: 
       objectReference: {fileID: 2036941171}
+    - target: {fileID: 114262109737277814, guid: 2f03beb92c5ff9e42b3d4924e9bec8ca,
+        type: 2}
+      propertyPath: m_maximumEnemies
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 114262109737277814, guid: 2f03beb92c5ff9e42b3d4924e9bec8ca,
+        type: 2}
+      propertyPath: m_minimumOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114262109737277814, guid: 2f03beb92c5ff9e42b3d4924e9bec8ca,
+        type: 2}
+      propertyPath: m_maximumOffset
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114262109737277814, guid: 2f03beb92c5ff9e42b3d4924e9bec8ca,
+        type: 2}
+      propertyPath: m_spawnTimer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114262109737277814, guid: 2f03beb92c5ff9e42b3d4924e9bec8ca,
+        type: 2}
+      propertyPath: m_enemyPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1612700647488354, guid: fe0bf6c8b9052284bb4e92729c104469,
+        type: 2}
+    - target: {fileID: 114262109737277814, guid: 2f03beb92c5ff9e42b3d4924e9bec8ca,
+        type: 2}
+      propertyPath: m_spawnPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 2053272857}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f03beb92c5ff9e42b3d4924e9bec8ca, type: 2}
   m_IsPrefabAsset: 0
@@ -5559,7 +5605,7 @@ GameObject:
   - component: {fileID: 955644741}
   m_Layer: 0
   m_Name: Saloon
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -6886,7 +6932,7 @@ GameObject:
   - component: {fileID: 1195914080}
   m_Layer: 0
   m_Name: TallHouse (1)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -7706,7 +7752,7 @@ GameObject:
   - component: {fileID: 1460327472}
   m_Layer: 0
   m_Name: TallHouse (8)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -8441,7 +8487,7 @@ GameObject:
   - component: {fileID: 1564282744}
   m_Layer: 0
   m_Name: TallHouse (16)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -8954,7 +9000,7 @@ GameObject:
   - component: {fileID: 1620697650}
   m_Layer: 0
   m_Name: MedHouse
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -9379,7 +9425,7 @@ GameObject:
   - component: {fileID: 1706050562}
   m_Layer: 0
   m_Name: MedHouse (5)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -9501,7 +9547,7 @@ GameObject:
   - component: {fileID: 1734787920}
   m_Layer: 0
   m_Name: TallHouse (11)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -9824,7 +9870,7 @@ GameObject:
   - component: {fileID: 1781868573}
   m_Layer: 0
   m_Name: TallHouse (6)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -10050,90 +10096,6 @@ Prefab:
     - target: {fileID: 1072047913816882, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
       propertyPath: m_Name
       value: GunPowderBarrel 1 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072047913816882, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1543710038264594, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989765334748200, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1458461442164108, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1830519074268422, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1379210526133942, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1256786602340998, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1223977402006098, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1370815389039176, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1072047913816882, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1379210526133942, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1223977402006098, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989765334748200, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1370815389039176, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1256786602340998, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1458461442164108, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1830519074268422, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1543710038264594, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4494082918331516, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.8889598
-      objectReference: {fileID: 0}
-    - target: {fileID: 4494082918331516, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.8889598
-      objectReference: {fileID: 0}
-    - target: {fileID: 4494082918331516, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1.8889598
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b71702b4b9babb4294ead989afb8c74, type: 2}
@@ -10378,7 +10340,7 @@ GameObject:
   - component: {fileID: 1897419751}
   m_Layer: 0
   m_Name: TallHouse (15)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -10693,7 +10655,7 @@ GameObject:
   - component: {fileID: 1974754491}
   m_Layer: 0
   m_Name: TallHouse (7)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -10969,6 +10931,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4416921532306156, guid: f9fbb9336523fa54d95a27efee15174c,
     type: 2}
   m_PrefabInternal: {fileID: 1602040027}
+--- !u!1 &2053272856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2053272857}
+  m_Layer: 0
+  m_Name: SpawnPoint_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2053272857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2053272856}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 277.89, y: 31.72, z: 326.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 454014261}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2055086372
 GameObject:
   m_ObjectHideFlags: 0
@@ -11103,7 +11093,7 @@ GameObject:
   - component: {fileID: 2127433283}
   m_Layer: 0
   m_Name: TallHouse (10)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8

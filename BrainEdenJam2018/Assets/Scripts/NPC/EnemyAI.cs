@@ -8,7 +8,11 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
     private Animator m_animator;
     private NavMeshAgent m_agent;
     private Rigidbody m_body;
-    public GameObject m_player;
+    private GameObject m_player;
+
+    public GameObject Player {
+        set { m_player = value; }
+    }
 
     //NAVIGATION
     private int m_destIndex = 0;
@@ -24,7 +28,7 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
 
     //SHOOTING DATA
     [SerializeField] private float m_gunDamage = 3f;
-    [SerializeField] private float m_fireRate = .2f;
+    [SerializeField] private float m_fireRate = .8f;
     [SerializeField] private float m_reloadTime = 10f;
     [SerializeField] private float m_shootingDistance = 8f;
     [SerializeField] private int m_clipSize = 6;
@@ -55,8 +59,7 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
     public float Health {
         get { return m_health; }
     }
-
-
+    
     // Use this for initialization
     void Start () {
         m_animator = GetComponentInChildren<Animator>();
@@ -297,6 +300,4 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
         //Allow future reloads.
         m_canReload = true;
     }
-
-   
 }

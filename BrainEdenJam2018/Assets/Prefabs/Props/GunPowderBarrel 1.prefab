@@ -27,10 +27,10 @@ GameObject:
   - component: {fileID: 208495928789634076}
   m_Layer: 0
   m_Name: GunPowderBarrel 1
-  m_TagString: Untagged
+  m_TagString: Explodable
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1223977402006098
 GameObject:
@@ -46,8 +46,8 @@ GameObject:
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1256786602340998
 GameObject:
@@ -63,8 +63,8 @@ GameObject:
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1370815389039176
 GameObject:
@@ -80,8 +80,8 @@ GameObject:
   m_Name: ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1379210526133942
 GameObject:
@@ -97,8 +97,8 @@ GameObject:
   m_Name: BigExplosionEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1458461442164108
 GameObject:
@@ -114,8 +114,8 @@ GameObject:
   m_Name: Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1543710038264594
 GameObject:
@@ -131,8 +131,8 @@ GameObject:
   m_Name: DerisFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1830519074268422
 GameObject:
@@ -148,8 +148,8 @@ GameObject:
   m_Name: DebrisSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1989765334748200
 GameObject:
@@ -165,8 +165,8 @@ GameObject:
   m_Name: Embers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4113336024021264
 Transform:
@@ -244,9 +244,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1072047913816882}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 284.86533, y: 32.301, z: 322.979}
-  m_LocalScale: {x: 5.666879, y: 5.666879, z: 5.666879}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.16, y: -0.311, z: -6.29}
+  m_LocalScale: {x: 1.8889598, y: 1.8889598, z: 1.8889598}
   m_Children:
   - {fileID: 4352145119224436}
   m_Father: {fileID: 0}

@@ -6,7 +6,7 @@ public class GunPowderBarrel : MonoBehaviour {
 
     [SerializeField] private float m_blastRadius;
     [SerializeField] private float m_blastForce;
-    [SerializeField] private float m_damageCaused = 5.0f;
+    [SerializeField] private float m_damageCaused = 40.0f;
 
     private bool m_detonated = false;
 
@@ -30,6 +30,7 @@ public class GunPowderBarrel : MonoBehaviour {
     public void Detonate() {
         m_detonated = true;
         GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<MeshCollider>().enabled = false;
 
         foreach(var collider in m_colliderList)
         {
@@ -44,7 +45,7 @@ public class GunPowderBarrel : MonoBehaviour {
                 isLiving = collider.gameObject.GetComponent<Enemy>();
                 if (isLiving)
                 {
-                    collider.gameObject.GetComponent<Enemy>().Damage(m_damageCaused);
+                    collider.gameObject.GetComponent<EnemyAI>().Damage(m_damageCaused);
                 }
             }
         }

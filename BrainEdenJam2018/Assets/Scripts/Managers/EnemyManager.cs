@@ -4,64 +4,98 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public List<GameObject> _EnemyPrefabs = new List<GameObject>();
-    public List<Transform> _SpawnPoints = new List<Transform>();
-    public float _MinRange;
-    public float _MaxRange;
-    public int _Quantity;
-    public float Timer;
-    private bool _Ready;
+    [SerializeField] private int m_maximumEnemies;
+    [SerializeField] private float m_minimumOffset;
+    [SerializeField] private float m_maximumOffset;
+    [SerializeField] private float m_spawnTimer;
+    [SerializeField] private List<GameObject> m_enemyPrefabs = new List<GameObject>();
+    [SerializeField] private List<Transform> m_spawnPoints = new List<Transform>();
 
     [SerializeField] private Transform[] m_wayPoints;
 
-    public GameObject m_player;
+    private bool m_canSpawnEnemy = true;
+    private GameObject m_player;
+    private List<GameObject> m_enemyList = new List<GameObject>();
 
-    public List<GameObject> _Enemy = new List<GameObject>();
-
-    // Use this for initialization
     void Start ()
     {
-        if (_EnemyPrefabs.Count != 0 && _SpawnPoints.Count != 0)
-        {
-            _Ready = true;
+        //Make sure there is a list of enemy types and spawn points
+        if (m_enemyPrefabs.Count == 0 && m_spawnPoints.Count == 0) {
+            Debug.Log("No Enemy Prefabs or Spawn Points!");
+        }
+        //Get a reference to the player for later use.
+        m_player = GameObject.FindGameObjectWithTag("Player");
+        if (!m_player) {
+            Debug.Log("Could Not Find Player Object!");
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        for(int i = 0; i < _Enemy.Count; i++)
-        {
-            if (_Enemy[i].GetComponent<EnemyAI>().IsDead())
-            {
-                GameObject enemy = _Enemy[i];
-                _Enemy.RemoveAt(i);
+    
+    void Update() {
+        //For each enemy in the list
+        for(int i = 0; i < m_enemyList.Count; i++) {
+            //Check to see if enemy has died
+            if (m_enemyList[i].GetComponent<EnemyAI>().IsDead()) {
+                //If enemy has died then get a reference to it.
+                GameObject enemy = m_enemyList[i];
+                //Remove it from the enemy list.
+                m_enemyList.RemoveAt(i);
+                //Then destroy the game object.
                 Destroy(enemy);
             }
         }
-        if (_Enemy.Count < _Quantity && _Ready)
-        {
+        //If the maximum enemy count has not ben reached, spawn new enemy.
+        if (m_enemyList.Count < m_maximumEnemies && m_canSpawnEnemy) {
+            m_canSpawnEnemy = false;
             StartCoroutine(SpawnEnemy());
         }
     }
 
-    IEnumerator SpawnEnemy()
-    {
-        _Ready = false;
+    IEnumerator SpawnEnemy() {
+        //Spawn Timer elapsed time.
+        float currentSpawnTime = 0f;
+        //While waiting for spawn timer.
+        while(currentSpawnTime < m_spawnTimer) {
+            //Increment time elapsed.
+            currentSpawnTime += Time.deltaTime;
+            //Exit Co-routine until next iteration.
+            yield return null;
+        }
 
-        var offset = new Vector3(Random.Range(_MinRange, _MaxRange), 1.0f, Random.Range(_MinRange, _MaxRange));
-        offset = _SpawnPoints[Random.Range(0, _SpawnPoints.Count)].TransformPoint(offset);
+        //Finished spawn point after apply offset.
+        Transform spawnPoint = null;
+        //Offset of spawn point
+        Vector3 offset = Vector3.zero;
 
-        var prefab = _EnemyPrefabs[Random.Range(0, _EnemyPrefabs.Count)];
-        var newPlatform = Instantiate(prefab, offset, Quaternion.identity);
-        newPlatform.transform.parent = transform;
-        newPlatform.GetComponent<EnemyAI>().m_player = m_player;
-        newPlatform.GetComponent<EnemyAI>().PathPoints = m_wayPoints;
+        //Flag to say calculated spawn is ok to use.
+        bool spawnOK = false;
+        while (!spawnOK) {
+            //Pick a spawn point from the list.
+            spawnPoint = m_spawnPoints[Random.Range(0, m_spawnPoints.Count - 1)];
+            //Create an offset.
+            offset = new Vector3(Random.Range(m_minimumOffset, m_maximumOffset), 1.0f, Random.Range(m_minimumOffset, m_maximumOffset));
+            //Check if the new spot is inside a building.
+            Collider[] colliders = Physics.OverlapSphere(spawnPoint.position + offset, 1f);
+            //Set spawnOK to true
+            spawnOK = true;
+            //If any colliders are a building set spawnOk to false;
+            foreach (var collider in colliders) {
+                if (collider.gameObject.CompareTag("Building")) {
+                    spawnOK = false;
+                }
+            }
+        }
+        //If spawn is ok then instantiate enemy. First choice an enemy type.
+        var enemyPrefab = m_enemyPrefabs[Random.Range(0, m_enemyPrefabs.Count - 1)];
+        //Instantiate the new enemy at the calculated spawn point.
+        var newEnemy = Instantiate(enemyPrefab, spawnPoint.position + offset, Quaternion.identity);
+        newEnemy.transform.parent = transform;
+        //Assign the player to the enemy for score purposes.
+        newEnemy.GetComponent<EnemyAI>().Player = m_player;
+        //Assign a waypoint list to enemy.
+        newEnemy.GetComponent<EnemyAI>().PathPoints = m_wayPoints;
+        //Store the new enemy is enemylist.
+        m_enemyList.Add(newEnemy);
 
-        _Enemy.Add(newPlatform);
-
-        yield return new WaitForSeconds(Timer);
-
-        _Ready = true;
+        m_canSpawnEnemy = true;
     }
 }

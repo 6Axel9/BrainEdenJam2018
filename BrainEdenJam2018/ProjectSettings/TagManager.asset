@@ -16,6 +16,8 @@ TagManager:
   - Item
   - EnemyBullet
   - Explodable
+  - Waypoint
+  - Building
   layers:
   - Default
   - TransparentFX
