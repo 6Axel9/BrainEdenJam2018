@@ -18,7 +18,6 @@ public class PlayerGun : MonoBehaviour
     private float m_fireRateCooldown;
 
     [SerializeField] private float m_bulletDamage = 0.0f;
-    [SerializeField] private float m_bulletSpeed;
 
     [SerializeField] private AudioClip m_shooting_audio;
     [SerializeField] private AudioClip m_reloading_audio;
@@ -43,11 +42,6 @@ public class PlayerGun : MonoBehaviour
     private float m_percentComplete = 0;
 
     private bool m_isJammed = false;
-
-    public float BulletSpeed {
-        get { return m_bulletSpeed; }
-        set { m_bulletSpeed = value; }
-    }
 
     public AudioClip ShootingAudio {
         get { return m_shooting_audio; }
@@ -89,7 +83,7 @@ public class PlayerGun : MonoBehaviour
 	void Update()
     {
         if (Input.GetMouseButtonDown(0)) {
-            GetComponent<UnreliableBehaviour>().FailChance = 15f;
+            GetComponent<UnreliableBehaviour>().FailChance = 20f;
             if (!GetComponent<UnreliableBehaviour>().HasFailed()) {
                 if(m_fireRateCooldown <= 0.0f && m_bulletsInClip > 0 && !IsJammed && m_totalAmmo > 0) {
                     StartCoroutine(Shoot());

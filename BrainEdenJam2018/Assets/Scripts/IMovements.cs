@@ -8,6 +8,7 @@ public interface IMovement
     void Walk(float velocity);
     void Jump(float force);
     void Crouch(bool crouch);
+    void Fall(float force);
 }
 
 public partial class Humanoid

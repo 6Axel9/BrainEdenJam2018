@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1782803268937392}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1782803268937392
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4804214598222378}
   - component: {fileID: 33104107019387530}
@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114455244311282598}
   - component: {fileID: 54108811271605618}
   - component: {fileID: 64218489575782888}
+  - component: {fileID: 208996531784648282}
   m_Layer: 0
   m_Name: AmmoBox
   m_TagString: Pickup
@@ -35,7 +36,7 @@ GameObject:
 --- !u!4 &4804214598222378
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782803268937392}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
@@ -48,7 +49,7 @@ Transform:
 --- !u!23 &23126360112884684
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782803268937392}
   m_Enabled: 1
@@ -83,14 +84,14 @@ MeshRenderer:
 --- !u!33 &33104107019387530
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782803268937392}
   m_Mesh: {fileID: 4300000, guid: ebaedb64cf924406296a038e743bf17b, type: 3}
 --- !u!54 &54108811271605618
 Rigidbody:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782803268937392}
   serializedVersion: 2
@@ -105,7 +106,7 @@ Rigidbody:
 --- !u!64 &64218489575782888
 MeshCollider:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782803268937392}
   m_Material: {fileID: 0}
@@ -119,7 +120,7 @@ MeshCollider:
 --- !u!114 &114455244311282598
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782803268937392}
   m_Enabled: 1
@@ -132,7 +133,7 @@ MonoBehaviour:
 --- !u!114 &114622879939204610
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782803268937392}
   m_Enabled: 1
@@ -143,3 +144,18 @@ MonoBehaviour:
   m_xAxis: 0
   m_yAxis: 1
   m_zAxis: 0
+--- !u!208 &208996531784648282
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1782803268937392}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.056, y: 0.033, z: 0.056}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

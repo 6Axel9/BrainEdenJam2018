@@ -12,6 +12,8 @@ public class EnemyManager : MonoBehaviour
     public float Timer;
     private bool _Ready;
 
+    [SerializeField] private Transform[] m_wayPoints;
+
     public GameObject m_player;
 
     public List<GameObject> _Enemy = new List<GameObject>();
@@ -30,7 +32,7 @@ public class EnemyManager : MonoBehaviour
     {
         for(int i = 0; i < _Enemy.Count; i++)
         {
-            if (_Enemy[i].GetComponent<Enemy>().IsDead)
+            if (_Enemy[i].GetComponent<EnemyAI>().IsDead())
             {
                 GameObject enemy = _Enemy[i];
                 _Enemy.RemoveAt(i);
@@ -53,7 +55,8 @@ public class EnemyManager : MonoBehaviour
         var prefab = _EnemyPrefabs[Random.Range(0, _EnemyPrefabs.Count)];
         var newPlatform = Instantiate(prefab, offset, Quaternion.identity);
         newPlatform.transform.parent = transform;
-        newPlatform.GetComponent<Enemy>().m_player = m_player;
+        newPlatform.GetComponent<EnemyAI>().m_player = m_player;
+        newPlatform.GetComponent<EnemyAI>().PathPoints = m_wayPoints;
 
         _Enemy.Add(newPlatform);
 

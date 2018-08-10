@@ -31,8 +31,6 @@ public partial class Enemy : MonoBehaviour, IMovement {
 
     NavMeshAgent m_agent;
 
-    public bool m_isVillain;
-
     // Use this for initialization
     void Start () {
 

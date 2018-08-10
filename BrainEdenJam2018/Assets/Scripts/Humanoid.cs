@@ -35,7 +35,7 @@ public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
 	void Update () {
         if(m_health <= 0.0f)
         {
-            m_isDead = true;
+            Kill();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
@@ -107,11 +107,6 @@ public partial class Humanoid : MonoBehaviour, IMovement, IInteraction
                 Heal(script.Quantity);
             }
             Destroy(collision.gameObject);
-        }
-
-        if (collision.gameObject.CompareTag("EnemyBullet"))
-        {
-            m_health -= 0.5f;
         }
     }
 }
