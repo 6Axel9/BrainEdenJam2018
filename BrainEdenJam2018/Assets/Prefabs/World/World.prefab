@@ -947,7 +947,7 @@ GameObject:
   - component: {fileID: 218961486203116286}
   - component: {fileID: 154730042758946000}
   m_Layer: 0
-  m_Name: LandMass
+  m_Name: World
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

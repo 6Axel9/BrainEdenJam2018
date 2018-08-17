@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4622888838685484}
   - component: {fileID: 33868474053365558}
   - component: {fileID: 23603408865023534}
+  - component: {fileID: 64223848436932272}
   m_Layer: 0
   m_Name: cactus
   m_TagString: Untagged
@@ -111,4 +112,18 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1125592439565356}
+  m_Mesh: {fileID: 4300000, guid: 2c3deb5406c564ae98413e8a350cccbd, type: 3}
+--- !u!64 &64223848436932272
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1125592439565356}
+  m_Material: {fileID: 13400000, guid: 0151b31279cbbe64db23577e9163731a, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 2c3deb5406c564ae98413e8a350cccbd, type: 3}

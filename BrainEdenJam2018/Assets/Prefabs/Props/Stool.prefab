@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 4884162124995336}
   - component: {fileID: 33011853076686186}
   - component: {fileID: 23879588375937840}
+  - component: {fileID: 64604875720343466}
   m_Layer: 0
   m_Name: stool_model
   m_TagString: Untagged
@@ -50,7 +51,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240037465248556}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 299.054, y: 32.447, z: 311.844}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4884162124995336}
@@ -111,4 +112,18 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1840187308240388}
+  m_Mesh: {fileID: 4300000, guid: cf461278dda4349ec854b034c33f44e4, type: 3}
+--- !u!64 &64604875720343466
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1840187308240388}
+  m_Material: {fileID: 13400000, guid: 0151b31279cbbe64db23577e9163731a, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: cf461278dda4349ec854b034c33f44e4, type: 3}
