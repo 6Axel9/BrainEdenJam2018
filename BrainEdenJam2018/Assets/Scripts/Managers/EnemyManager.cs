@@ -28,6 +28,12 @@ public class EnemyManager : MonoBehaviour
         if (!m_player) {
             Debug.Log("Could Not Find Player Object!");
         }
+        //Attempt to get all spawn points for enemies by getting transform components from children.
+        //Skip the first component as this is the transform above the children.
+        Transform[] childSpawnPoints = GetComponentsInChildren<Transform>();
+        for(int i = 1; i < childSpawnPoints.Length; i++) {
+            m_spawnPoints.Add(childSpawnPoints[i]);
+        }
     }
     
     void Update() {
