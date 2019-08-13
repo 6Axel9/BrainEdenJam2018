@@ -42,7 +42,7 @@ public class GunPowderBarrel : MonoBehaviour {
                 {
                     collider.gameObject.GetComponent<Humanoid>().Damage(m_damageCaused);
                 }
-                isLiving = collider.gameObject.GetComponent<Enemy>();
+                isLiving = collider.gameObject.GetComponent<EnemyAI>();
                 if (isLiving)
                 {
                     collider.gameObject.GetComponent<EnemyAI>().Damage(m_damageCaused);

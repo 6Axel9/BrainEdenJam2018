@@ -46,6 +46,7 @@ public class EnemyManager : MonoBehaviour
                 //Remove it from the enemy list.
                 m_enemyList.RemoveAt(i);
                 //Then destroy the game object.
+                m_player.GetComponent<Humanoid>().Score++;
                 Destroy(enemy);
             }
         }

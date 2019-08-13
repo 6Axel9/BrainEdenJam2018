@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class HighScores : MonoBehaviour {
 
     private Humanoid PlayerScript;
-    public Text HighScore;
-    public Text Score;
+    public Text CurrentScore;
 
 	// Use this for initialization
 	void Start () {
@@ -22,15 +21,18 @@ public class HighScores : MonoBehaviour {
         {
             int current = PlayerScript.Score;
 
-            Score.text = current.ToString();
+            CurrentScore.text = "Score " + current.ToString();
 
-            if(current > PlayerPrefs.GetInt("HighScore", 0))
-            {
+            if (!PlayerPrefs.HasKey("HighScore")) {
+                PlayerPrefs.SetInt("HighScore", 0);
+            }
+
+            if(current > PlayerPrefs.GetInt("HighScore", 0)) {
                 PlayerPrefs.SetInt("HighScore", current);
             }
-        }
 
-        HighScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+            PlayerPrefs.SetInt("CurrentScore", current);
+        }
 
         PlayerPrefs.Save();
     }

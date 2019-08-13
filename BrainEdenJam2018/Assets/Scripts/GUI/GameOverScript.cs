@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverScript : MonoBehaviour {
+
+    public Text Score;
+    public Text HighScore;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
+
+        HighScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+        Score.text = PlayerPrefs.GetInt("CurrentScore", 0).ToString();
     }
 
     public void GoToMainMenu()

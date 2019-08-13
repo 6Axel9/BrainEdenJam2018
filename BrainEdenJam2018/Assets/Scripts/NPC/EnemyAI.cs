@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
     private NavMeshAgent m_agent;
     private Rigidbody m_body;
     private GameObject m_player;
+    [SerializeField] private GameObject Gun;
 
     public GameObject Player {
         set { m_player = value; }
@@ -84,11 +85,6 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
 	
 	// Update is called once per frame
 	void Update () {
-        //If Enemy is dead increment score.
-        if (IsDead()) {
-            m_player.GetComponent<Humanoid>().Score++;
-        }
-
         if(m_agent && !IsDead())
         {
             //Get a list of objects nearby the enemy.
@@ -115,6 +111,9 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
                     m_agent.transform.forward = m_target.position - transform.position;
                     //Start the shooting animation
                     m_animator.SetBool("Shooting", true);
+                    Gun.transform.localEulerAngles = new Vector3(10.806f, 11.622f, 62.235f);
+                    Gun.transform.localPosition = new Vector3(0.0185f, 0.007f, 0.0109f);
+                    
 
                     //Get the current animation state info.
                     AnimatorStateInfo animationInfo = m_animator.GetCurrentAnimatorStateInfo(0);
@@ -148,6 +147,8 @@ public class EnemyAI : MonoBehaviour, IMovement, ILiving<float> {
                     m_agent.isStopped = false;
                     //Stop the shooting animation.
                     m_animator.SetBool("Shooting", false);
+                    Gun.transform.localEulerAngles = Vector3.zero;
+                    Gun.transform.localPosition = Vector3.zero; 
                     //Stop Enemy from shooting.
                     m_canShoot = false;
                 }
